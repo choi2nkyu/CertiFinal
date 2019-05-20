@@ -197,6 +197,7 @@ export const actions = {
 
     if (condition) {context.commit('saveDate', date)}
   },
+
 }
 
 export default new Vuex.Store({
