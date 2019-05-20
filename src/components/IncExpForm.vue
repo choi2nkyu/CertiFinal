@@ -169,6 +169,8 @@ export default {
 }
 </script>
 <style scoped>
+
+
 .leftColumn {
   margin: 20px 20px;
 }

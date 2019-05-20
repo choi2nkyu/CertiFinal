@@ -10,7 +10,6 @@ import IncExpForm from '@/components/IncExpForm.vue'
 export default {
   name: 'Income',
   components: {
-    IncExpForm,
-  },
+    IncExpForm  },
 }
 </script>

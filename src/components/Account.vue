@@ -1,5 +1,6 @@
 <template>
   <div class="account">
+    <SaveButton/>
     <h1>{{ msg }}</h1>
     <div class="container row">
       <div class="col-5 left-column">
@@ -56,8 +57,10 @@
 
 <script>
 import { constants } from 'fs'
+import SaveButton from '@/components/SaveButton.vue';
 export default {
   name: 'Account',
+  components :{ SaveButton},
   props: {
     msg: String,
   },

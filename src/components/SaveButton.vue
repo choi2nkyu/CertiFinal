@@ -1,7 +1,7 @@
 <template>
   <div class="SaveButton">
 
-      <v-btn  @click="saveAllData"  color="green" >Save All</v-btn>
+      <button id="saveButton" @click="saveAllData"  >Save All</button>
     </div>
 </template>
 
@@ -23,4 +23,26 @@ export default {
 
 }
 </script>
+<style scoped>
+
+  #saveButton{
+
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+    position: absolute;
+    right: 5%;
+    top:5%;
+  }
+
+</style>
+
+
+
 
