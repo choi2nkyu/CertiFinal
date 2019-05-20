@@ -1,5 +1,6 @@
 <template>
   <div class="IncExpForm">
+    <SaveButton/>
     <div class="col-lg-5">
       <button type="button" class="btn btn-outline-secondary" @click="navigate">Back</button>
       <form>
@@ -58,8 +59,10 @@
 </template>
 
 <script>
+import SaveButton from '@/components/SaveButton.vue'
 export default {
   name: 'IncExpForm',
+  components:{SaveButton},
   data() {
     return {
       currentName: this.$store.state.CURRENT_ITEM.name,
