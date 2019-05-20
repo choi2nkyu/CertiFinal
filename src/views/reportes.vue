@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SaveButton/>
     <h1>Reportes</h1>
     <div class="alert alert-danger" role="alert"
     v-if="showGridAlert">Please only select one grid.</div>
@@ -98,8 +99,10 @@
 </template>
 
 <script>
-import { truncate } from 'fs'
+import { truncate } from 'fs';
+import SaveButton from '@/components/SaveButton.vue';
 export default {
+  components:{SaveButton},
   data() {
     return {
       fields: ['name', 'category', 'amount', 'date'],
