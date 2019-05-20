@@ -125,7 +125,20 @@ export const mutations = {
   saveAllData() {
     window.localStorage.clear()
     window.localStorage.setItem('storage', JSON.stringify(state))
-    console.log(window.localStorage.length)
+    console.log(window.localStorage.length);
+
+  },
+  retrieveAllData(){
+
+    state.ACCOUNTS = JSON.parse(window.localStorage.getItem('storage')).ACCOUNTS;
+    state.EXPENSE_CATEGORIES = JSON.parse(window.localStorage.getItem('storage')).EXPENSE_CATEGORIES;
+    state.INCOME_CATEGORIES = JSON.parse(window.localStorage.getItem('storage')).INCOME_CATEGORIES;
+    state.INCOMES = JSON.parse(window.localStorage.getItem('storage')).INCOMES;
+    state.EXPENSES = JSON.parse(window.localStorage.getItem('storage')).EXPENSES;
+    state.DATES = JSON.parse(window.localStorage.getItem('storage')).DATES;
+    state.CURRENT_ACCOUNT = JSON.parse(window.localStorage.getItem('storage')).CURRENT_ACCOUNT;
+    state.CURRENT_ITEM = JSON.parse(window.localStorage.getItem('storage')).CURRENT_ITEM;
+    
   },
   eraseAllData() {
     window.localStorage.clear()
@@ -184,10 +197,13 @@ export const actions = {
     context.commit('deleteExpenseCategory', categoryName)
   },
   saveAllData() {
-    mutations.saveAllData()
+    mutations.saveAllData();
+  },
+  retrieveAllData(){
+    mutations.retrieveAllData();
   },
   eraseAllData() {
-    mutations.eraseAllData()
+    mutations.eraseAllData();
   },
   saveDate(context, date) {
     let condition = true
