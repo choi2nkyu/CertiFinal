@@ -1,6 +1,8 @@
 <template>
   <div class="account">
     <SaveButton/>
+    <button id="generalAccount" @click="goToGeneralAccount" >General Account</button>
+
     <h1>{{ msg }}</h1>
     <div class="container row">
       <div class="col-5 left-column">
@@ -175,12 +177,34 @@ export default {
         this.showGridAlert = true
       }
     },
+
+    goToGeneralAccount(){
+      this.$router.push('generalAccount')
+
+    }
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+#generalAccount{
+  background-color: #008CBA; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+    position: absolute;
+    right: 83%;
+    top:5%;
+  
+}
+
 .left-column {
   margin: 20px 20px;
 }

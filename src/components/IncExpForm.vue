@@ -178,10 +178,12 @@ export default {
               var newBalanceSubstraction = Number.parseInt(account.balance)-Number.parseInt(this.currentAmount);
 
               if(this.formType=='Income'){
+                //ALERTA DICIENDO QUE TODO BOMBASTIC
                 account.balance = newBalanceAddition;
                 return true;
               }
               else if(this.formType=='Expense' && newBalanceSubstraction>=0){
+                //ALERT DICIENDO QUE TODO BLUE
                 account.balance = newBalanceSubstraction;
                 return true;
                 }
@@ -191,7 +193,6 @@ export default {
                 //ALERTA DICIENDO QUE NO HAY SUFICIENTE PLATA PARA HACER ESA EXPENSA PARA CACHORREAR
               }
           }
-          return false;
 
       }
     }

@@ -6,6 +6,7 @@ import Expense from './views/Expense.vue'
 import Reportes from './views/reportes.vue'
 import EditExpense from './views/EditExpense.vue'
 import EditIncome from './views/EditIncome.vue'
+import GeneralAccount from './views/GeneralAccount.vue'
 
 Vue.use(Router)
 
@@ -41,5 +42,10 @@ export default new Router({
       name: 'editexpense',
       component: EditExpense,
     },
+    {
+      path: '/generalAccount',
+      name: 'generalAccount',
+      component: GeneralAccount
+    }
   ],
 })
