@@ -133,6 +133,7 @@ export default {
       }
     },
     editClicked() {
+     
       if (this.selected.length == 1) {
         this.showGridAlert = false
         this.changeButton = true
@@ -141,10 +142,10 @@ export default {
         this.changeButton = false
       }
     },
-    deleteClicked() {
+    deleteClicked() {      
       if (this.selected.length == 1) {
         this.showGridAlert = false
-        this.$store.dispatch('deleteAccount', this.selected[0].id)
+        this.$store.dispatch('deleteAccount', this.selected[0].name)
       } else {
         this.showGridAlert = true
       }
