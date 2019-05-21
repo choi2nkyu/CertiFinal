@@ -1,6 +1,7 @@
 <template>
   <div>
     <SaveButton/>
+    <h2>SALDO: {{this.$store.state.CURRENT_ACCOUNT.balance}}</h2>
     <h1>Reportes</h1>
     <div class="alert alert-danger" role="alert"
     v-if="showGridAlert">Please only select one grid.</div>

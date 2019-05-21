@@ -1,6 +1,8 @@
 <template>
   <div class="account">
     <SaveButton/>
+    <button id="generalAccount" @click="goToGeneralAccount" >General Account</button>
+
     <h1>{{ msg }}</h1>
     <div class="container row">
       <div class="col-5 left-column">
@@ -87,6 +89,7 @@ export default {
       currentName: '',
       currentDescription: '',
       currentId: 0,
+      currentBalance: 0,
       showInputAlert: false,
       showGridAlert: false,
       changeButton: false,
@@ -102,6 +105,7 @@ export default {
       this.accountArray.push(object)
       this.currentName = object.name
       this.currentDescription = object.description
+      this.currentBalance = object.balance
     },
     addClicked() {
       if (
@@ -113,6 +117,7 @@ export default {
           id: this.currentId++,
           name: this.$refs.accountInput[0].value,
           description: this.$refs.accountInput[1].value,
+          balance: this.currentBalance
         }
         this.add(object)
         this.addAccountToStore()
@@ -122,9 +127,10 @@ export default {
     },
     addAccountToStore() {
       this.$store.dispatch('addAccount', {
-        id: this.currentId,
+        id: this.currentId++,
         name: this.currentName,
         description: this.currentDescription,
+        balance: this.currentBalance
       })
     },
     rowSelected(items) {
@@ -157,6 +163,7 @@ export default {
         if (element.id == this.selected[0].id) {
           element.name = this.$refs.accountInput[0].value
           element.description = this.$refs.accountInput[1].value
+          
         }
       })
     },
@@ -170,12 +177,34 @@ export default {
         this.showGridAlert = true
       }
     },
+
+    goToGeneralAccount(){
+      this.$router.push('generalAccount')
+
+    }
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+#generalAccount{
+  background-color: #008CBA; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+    position: absolute;
+    right: 83%;
+    top:5%;
+  
+}
+
 .left-column {
   margin: 20px 20px;
 }

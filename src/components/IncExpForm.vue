@@ -132,12 +132,12 @@ export default {
           amount: this.currentAmount,
           account: this.currentAccount,
           date: today,
-
         }
-        console.log(formObject)
-        this.$store.dispatch('add' + this.formType, formObject)
-        this.$store.dispatch('saveDate', today)
-        console.log(this.$store.state.EXPENSES)
+
+        if(this.updateAccountBalance()){
+              this.$store.dispatch('add' + this.formType, formObject)
+              this.$store.dispatch('saveDate', today)
+        }
 
         if (this.transferenceBool) {
           const formObject = {
@@ -168,6 +168,34 @@ export default {
     navigate() {
       this.$router.push('reportes')
     },
+    updateAccountBalance(){
+
+      for(var account of this.$store.state.ACCOUNTS){
+
+          if(account.name==this.currentAccount){
+              
+              var newBalanceAddition = Number.parseInt(account.balance)+Number.parseInt(this.currentAmount);
+              var newBalanceSubstraction = Number.parseInt(account.balance)-Number.parseInt(this.currentAmount);
+
+              if(this.formType=='Income'){
+                //ALERTA DICIENDO QUE TODO BOMBASTIC
+                account.balance = newBalanceAddition;
+                return true;
+              }
+              else if(this.formType=='Expense' && newBalanceSubstraction>=0){
+                //ALERT DICIENDO QUE TODO BLUE
+                account.balance = newBalanceSubstraction;
+                return true;
+                }
+              
+              else{
+                return false;
+                //ALERTA DICIENDO QUE NO HAY SUFICIENTE PLATA PARA HACER ESA EXPENSA PARA CACHORREAR
+              }
+          }
+
+      }
+    }
   },
 }
 </script>
