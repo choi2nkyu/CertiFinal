@@ -47,7 +47,7 @@
           </select>
           <br>
           <label for="Amount" id="lblAmount">{{formType}} Amount</label>
-          <input type="text" class="form-control" v-model="currentAmount" id="Amount">
+          <input type="number" class="form-control" v-model="currentAmount" id="Amount">
         </div>
       </form>
     </div>

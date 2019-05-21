@@ -21,18 +21,43 @@ export const mutations = {
     context.CURRENT_ACCOUNT = currentAccount
   },
   addAccount(context, newAccount) {
+    let controlAccount = true;
+    context.ACCOUNTS.forEach(
+      function(element) {              
+        if (element.name === newAccount.name) {
+        controlAccount = false;        
+        }
+      })
+      if(controlAccount){
     context.ACCOUNTS.push(newAccount)
+      }
+      else{
+        alert("No puede ingresar cuentas con el mismo nombre")
+      }
   },
-
-  deleteAccount(context, accountId) {
+  deleteAccount(context, accountName) {    
+    let controlExpense = true;
+    let controlIncome = true;
+    context.EXPENSES.forEach(
+      function(element) {              
+        if (element.account === accountName) {
+        controlExpense = false;        
+        }
+      })
+      context.INCOMES.forEach(
+        function(element) {              
+          if (element.account === accountName) {
+          controlIncome = false;        
+          }
+        })
+      if(controlExpense && controlIncome){        
     context.ACCOUNTS.forEach(function(element) {
       const indexofElement = context.ACCOUNTS.indexOf(element)
-      if (element.id === accountId) {
+      if (element.name === accountName) {
         context.ACCOUNTS.splice(indexofElement, 1)
       }
-    })
+    })}
   },
-
   addIncomeCategory(context, newCategory) {
     context.INCOME_CATEGORIES.push(newCategory)
   },
@@ -49,8 +74,7 @@ export const mutations = {
   },
 
   editIncome(context, editedIncome) {
-    console.log(editedIncome)
-    context.INCOMES.forEach(
+      context.INCOMES.forEach(
         function(element) {
           const indexofElement = context.INCOMES.indexOf(element)
           if (element.name === editedIncome.oldName) {
@@ -85,7 +109,7 @@ export const mutations = {
   deleteIncome(context, incomeName) {
     context.INCOMES.forEach(
         function(element) {
-          const indexofElement = context.INCOME_CATEGORIES.indexOf(element)
+          const indexofElement = context.INCOMES.indexOf(element)
           if (element.name === incomeName) {
             context.INCOMES.splice(indexofElement, 1)
           }
@@ -215,7 +239,6 @@ export const actions = {
   },
 
 }
-
 export default new Vuex.Store({
   state,
   mutations,
