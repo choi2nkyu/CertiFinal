@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SaveButton/>
     <h1>Reportes</h1>
     <div class="alert alert-danger" role="alert"
     v-if="showGridAlert">Please only select one grid.</div>
@@ -98,13 +99,15 @@
 </template>
 
 <script>
-import { truncate } from 'fs'
+import { truncate } from 'fs';
+import SaveButton from '@/components/SaveButton.vue';
 export default {
+  components:{SaveButton},
   data() {
     return {
       fields: ['name', 'category', 'amount', 'date'],
-      currentIncomeCategory: '',
-      currentExpenseCategory: '',
+      currentIncomeCategory: 'All',
+      currentExpenseCategory: 'All',
       currentDate: '',
       selected: [],
       showGridAlert: false,
@@ -150,7 +153,7 @@ export default {
       const objects = []
 
 
-      if (this.currentIncomeCategory === '' && this.currentDate === '') {
+      if (this.currentIncomeCategory==='All') {
         for (const element of this.$store.state.INCOMES) {
           if (this.$store.state.CURRENT_ACCOUNT.name ===
           element.account) {objects.push(element)}
@@ -160,6 +163,8 @@ export default {
         for (const element of this.$store.state.INCOMES) {
           if (this.currentDate === element.date) {objects.push(element)}
         }
+        this.currentDate='';
+        this.currentIncomeCategory='All';
         return objects
       } else {
         for (const element of this.$store.state.INCOMES) {
@@ -177,7 +182,7 @@ export default {
       const objects = []
 
 
-      if (this.currentExpenseCategory === '' && this.currentDate === '') {
+      if (this.currentExpenseCategory==='All') {
         for (const element of this.$store.state.EXPENSES) {
           if (this.$store.state.CURRENT_ACCOUNT.name ===
           element.account) {objects.push(element)}
@@ -187,6 +192,8 @@ export default {
         for (const element of this.$store.state.EXPENSES) {
           if (this.currentDate === element.date) {objects.push(element)}
         }
+        this.currentDate='';
+        this.currentExpenseCategory='All';
         return objects
       } else {
         for (const element of this.$store.state.EXPENSES) {
@@ -201,14 +208,20 @@ export default {
 
 
     Income_categories: function() {
-      return this.$store.state.INCOME_CATEGORIES
+      var auxArray = [...this.$store.state.INCOME_CATEGORIES];
+      auxArray.shift(); 
+      auxArray.unshift({name: 'All'});
+      return auxArray;
     },
     Expense_categories: function() {
-      return this.$store.state.EXPENSE_CATEGORIES
+      var auxArray = [...this.$store.state.EXPENSE_CATEGORIES];
+      auxArray.shift(); 
+      auxArray.unshift({name: 'All'});
+      return auxArray;
     },
 
     dates: function() {
-      return this.$store.state.DATES
+      return this.$store.state.DATES;
     },
   },
 }
