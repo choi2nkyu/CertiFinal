@@ -133,10 +133,11 @@ export default {
           account: this.currentAccount,
           date: today,
         }
-        this.$store.dispatch('add' + this.formType, formObject)
-        this.$store.dispatch('saveDate', today)
 
-        this.updateAccountBalance();
+        if(this.updateAccountBalance()){
+              this.$store.dispatch('add' + this.formType, formObject)
+              this.$store.dispatch('saveDate', today)
+        }
 
         if (this.transferenceBool) {
           const formObject = {
@@ -176,10 +177,21 @@ export default {
               var newBalanceAddition = Number.parseInt(account.balance)+Number.parseInt(this.currentAmount);
               var newBalanceSubstraction = Number.parseInt(account.balance)-Number.parseInt(this.currentAmount);
 
-
-              this.formType=='Income'?account.balance=newBalanceAddition:account.balance=newBalanceSubstraction;
-
+              if(this.formType=='Income'){
+                account.balance = newBalanceAddition;
+                return true;
+              }
+              else if(this.formType=='Expense' && newBalanceSubstraction>=0){
+                account.balance = newBalanceSubstraction;
+                return true;
+                }
+              
+              else{
+                return false;
+                //ALERTA DICIENDO QUE NO HAY SUFICIENTE PLATA PARA HACER ESA EXPENSA PARA CACHORREAR
+              }
           }
+          return false;
 
       }
     }
