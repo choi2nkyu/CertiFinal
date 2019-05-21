@@ -6,13 +6,13 @@ import Vuex from 'vuex'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('reportes.vue', () => {
+suite('reportes.vue', () => {
   let actions
   let store
   let state
   let mutations
   let wrapper
-  beforeEach(function() {
+  setup(function() {
     mutations = {
       setCurrentAccount(context, currentAccount) {
         context.CURRENT_ACCOUNT = currentAccount
@@ -202,7 +202,7 @@ describe('reportes.vue', () => {
     })
     wrapper = shallowMount(reportes, { store, localVue })
   })
-  it('buttons add, edit, delete in Ingresos', () => {
+  test('buttons add, edit, delete in Ingresos', () => {
     const buttonArray = wrapper.findAll('b-button')
     const firstButton = buttonArray.at(0)
     const secondButton = buttonArray.at(1)
@@ -213,7 +213,7 @@ describe('reportes.vue', () => {
     expect(thirdButton.text()).to.equal('Delete')
   })
 
-  it('Table has 4 columns: name, category, amount, date', () => {
+  test('Table has 4 columns: name, category, amount, date', () => {
     const fieldArray = wrapper.vm.fields
     const firstColumn = fieldArray[0]
     const secondColumn = fieldArray[1]
@@ -226,7 +226,7 @@ describe('reportes.vue', () => {
     expect(fourthColumn).to.equal('date')
   })
 
-  it('Ensure that there is no data', () => {
+  test('Ensure that there is no data', () => {
     const itemArray = wrapper.vm.items
     expect(itemArray.length).to.equal(0)
   })
