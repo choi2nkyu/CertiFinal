@@ -87,6 +87,7 @@ export default {
       currentName: '',
       currentDescription: '',
       currentId: 0,
+      currentBalance: 0,
       showInputAlert: false,
       showGridAlert: false,
       changeButton: false,
@@ -102,6 +103,7 @@ export default {
       this.accountArray.push(object)
       this.currentName = object.name
       this.currentDescription = object.description
+      this.currentBalance = object.balance
     },
     addClicked() {
       if (
@@ -113,6 +115,7 @@ export default {
           id: this.currentId++,
           name: this.$refs.accountInput[0].value,
           description: this.$refs.accountInput[1].value,
+          balance: this.currentBalance
         }
         this.add(object)
         this.addAccountToStore()
@@ -122,9 +125,10 @@ export default {
     },
     addAccountToStore() {
       this.$store.dispatch('addAccount', {
-        id: this.currentId,
+        id: this.currentId++,
         name: this.currentName,
         description: this.currentDescription,
+        balance: this.currentBalance
       })
     },
     rowSelected(items) {
@@ -157,6 +161,7 @@ export default {
         if (element.id == this.selected[0].id) {
           element.name = this.$refs.accountInput[0].value
           element.description = this.$refs.accountInput[1].value
+          
         }
       })
     },
