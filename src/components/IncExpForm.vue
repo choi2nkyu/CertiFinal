@@ -132,12 +132,11 @@ export default {
           amount: this.currentAmount,
           account: this.currentAccount,
           date: today,
-
         }
-        console.log(formObject)
         this.$store.dispatch('add' + this.formType, formObject)
         this.$store.dispatch('saveDate', today)
-        console.log(this.$store.state.EXPENSES)
+
+        this.updateAccountBalance();
 
         if (this.transferenceBool) {
           const formObject = {
@@ -168,6 +167,22 @@ export default {
     navigate() {
       this.$router.push('reportes')
     },
+    updateAccountBalance(){
+
+      for(var account of this.$store.state.ACCOUNTS){
+
+          if(account.name==this.currentAccount){
+              
+              var newBalanceAddition = Number.parseInt(account.balance)+Number.parseInt(this.currentAmount);
+              var newBalanceSubstraction = Number.parseInt(account.balance)-Number.parseInt(this.currentAmount);
+
+
+              this.formType=='Income'?account.balance=newBalanceAddition:account.balance=newBalanceSubstraction;
+
+          }
+
+      }
+    }
   },
 }
 </script>
