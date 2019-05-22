@@ -148,6 +148,16 @@ export default {
           }
           this.$store.dispatch('add' + this.formType, formObject)
           this.$store.dispatch('saveDate', today)
+
+           if (this.transferenceBool) {
+          const formObject = {
+            name: this.currentName,
+            category: this.currentCategory,
+            amount: this.currentAmount,
+            account: this.destinationAccount,
+          }
+          this.$store.dispatch('addIncome', formObject)
+        }
           this.navigate()
         } else {
           this.showFormAlert = true
