@@ -117,28 +117,29 @@ export default {
   methods: {
     deleteIncome() {
       if(this.selected[0].category === "Transference"){
-      this.$store.dispatch('deleteIncome', this.selected[0].name)
-      this.$store.dispatch('deleteExpense', this.selected[0].name)
+      this.$store.dispatch('deleteTransference', this.selected[0].name)
       }
-      else{
-        //delete income outcome con cuenta y nombre, hacer un delete transference, evitar crear ingreso/egreso con el mismo nombre en la misma cuenta
-        //solo crear ingresos con todos los datos
+      else{                
         let itemToDelete
         itemToDelete = {
           name:this.selected[0].name,
           account:this.$store.state.CURRENT_ACCOUNT.name
         }
-        this.$store.dispatch('deleteIncome', this.selected[0].name)
+        this.$store.dispatch('deleteIncome', itemToDelete)
       }
     },
     deleteExpense() {
       if(this.selected[0].category === "Transference"){
-      this.$store.dispatch('deleteIncome', this.selected[0].name)
-      this.$store.dispatch('deleteExpense', this.selected[0].name)
+      this.$store.dispatch('deleteTransference', this.selected[0].name)
       }
-      else{
-        this.$store.dispatch('deleteExpense', this.selected[0].name)
-      }
+      else{        
+        let itemToDelete
+        itemToDelete = {
+          name:this.selected[0].name,
+          account:this.$store.state.CURRENT_ACCOUNT.name
+        }
+        this.$store.dispatch('deleteExpense', itemToDelete)
+      }      
     },
     navigateToIncome() {
       this.$router.push('income')
@@ -200,8 +201,6 @@ export default {
 
     items2: function() {
       const objects = []
-
-
       if (this.currentExpenseCategory==='All') {
         for (const element of this.$store.state.EXPENSES) {
           if (this.$store.state.CURRENT_ACCOUNT.name ===
@@ -225,8 +224,6 @@ export default {
         return objects
       }
     },
-
-
     Income_categories: function() {
       var auxArray = [...this.$store.state.INCOME_CATEGORIES];
       auxArray.shift(); 
