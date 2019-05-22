@@ -138,7 +138,26 @@ export default {
 
           today = dd + '/' + mm + '/' + yyyy
 
+        const formObject = {
+          name: this.currentName,
+          category: this.currentCategory,
+          amount: this.currentAmount,
+          account: this.currentAccount,
+          date: today,
+          _rowVariant: this.formType=='Income'?'success':'danger'       
 
+        }
+
+        if(this.updateAccountBalance()){
+          if(this.currentName != "" && this.currentCategory != "" && this.currentAmount != "")
+          {
+              this.$store.dispatch('add' + this.formType, formObject)
+              this.$store.dispatch('saveDate', today)
+          }
+          else {
+            alert("Los 3 campos deben tener un valor")
+          }
+        }
           const formObject = {
             name: this.currentName,
             category: this.currentCategory,
@@ -146,26 +165,9 @@ export default {
             account: this.currentAccount,
             date: today,
           }
-
-          if(this.updateAccountBalance()){
-                this.$store.dispatch('add' + this.formType, formObject)
-                this.$store.dispatch('saveDate', today)
-          }
-
-          if (this.transferenceBool) {
-            const formObject = {
-              name: this.currentName,
-              category: this.currentCategory,
-              amount: this.currentAmount,
-              account: this.destinationAccount,
-            }
-
-            this.$store.dispatch('addIncome', formObject)
-          }
-          this.navigate()
-        } else {
-          this.showFormAlert = true
+          this.$store.dispatch('addIncome', formObject)
         }
+
       }
     },
     saveCategory() {
@@ -186,39 +188,29 @@ export default {
       this.$router.push('reportes')
     },
     updateAccountBalance(){
-
       for(var account of this.$store.state.ACCOUNTS){
-
-          if(account.name==this.currentAccount){
-              
+          if(account.name==this.currentAccount){              
               var newBalanceAddition = Number.parseInt(account.balance)+Number.parseInt(this.currentAmount);
               var newBalanceSubstraction = Number.parseInt(account.balance)-Number.parseInt(this.currentAmount);
-
-              if(this.formType=='Income'){
-                //ALERTA DICIENDO QUE TODO BOMBASTIC
+              if(this.formType=='Income'){                
                 account.balance = newBalanceAddition;
                 return true;
               }
               else if(this.formType=='Expense' && newBalanceSubstraction>=0){
-                //ALERT DICIENDO QUE TODO BLUE
                 account.balance = newBalanceSubstraction;
                 return true;
-                }
-              
+                }              
               else{
-                return false;
-                //ALERTA DICIENDO QUE NO HAY SUFICIENTE PLATA PARA HACER ESA EXPENSA PARA CACHORREAR
+                alert("There is not enough money in the account to create this expense")
+                return false;              
               }
           }
-
       }
     }
   },
 }
 </script>
 <style scoped>
-
-
 .leftColumn {
   margin: 20px 20px;
 }

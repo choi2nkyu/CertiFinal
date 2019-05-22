@@ -10,13 +10,13 @@ const { addIncome } = mutations
 const { saveAllData } = mutations
 const { eraseAllData } = mutations
 
-describe('mutations', () => {
-  it('Mutations are Testable', () => {
+suite('mutations', () => {
+  test('Mutations are Testable', () => {
     increment()
     expect(state.count).to.equal(1)
   })
 
-  it('add INCOME ', () => {
+  test('add INCOME ', () => {
     const income = { name: 'income', amount: '10' }
     assert.isEmpty(state.INCOMES, 'Array de Incomes vacio')
     addIncome(state, income)
@@ -24,7 +24,7 @@ describe('mutations', () => {
   })
 
 
-  it('Local Storage Data Saving', () => {
+  test('Local Storage Data Saving', () => {
     const income = { name: 'income', amount: '10' }
     addIncome(state, income)
     expect(window.localStorage.length).to.equal(0)
@@ -32,7 +32,7 @@ describe('mutations', () => {
     expect(window.localStorage.length).to.equal(1)
   })
 
-  it('Local Storage Data clearing', () => {
+  test('Local Storage Data clearing', () => {
     const income = { name: 'income', amount: '10' }
     addIncome(state, income)
     saveAllData()

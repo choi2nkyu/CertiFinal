@@ -7,14 +7,14 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 
-describe('Account.vue', () => {
+suite('Account.vue', () => {
   let actions
   let store
   let state
   let mutations
   let wrapper
   const object = [{ name: 'Savings', description: 'Ordinary Savings' }]
-  beforeEach(function() {
+  setup(function() {
     mutations = {
       setCurrentAccount(context, currentAccount) {
         context.CURRENT_ACCOUNT = currentAccount
@@ -205,18 +205,18 @@ describe('Account.vue', () => {
     wrapper = shallowMount(Account, { store, localVue })
   })
 
-  it('Account has 3 buttons: add, edit, delete', () => {
+  test('Account has 3 buttons: add, edit, delete', () => {
     const buttonArray = wrapper.findAll('button')
-    const firstButton = buttonArray.at(0)
-    const secondButton = buttonArray.at(1)
-    const thirdButton = buttonArray.at(2)
-    expect(buttonArray.length).to.equal(3)
+    const firstButton = buttonArray.at(1)
+    const secondButton = buttonArray.at(2)
+    const thirdButton = buttonArray.at(3)
+    expect(buttonArray.length).to.equal(4)
     expect(firstButton.text()).to.equal('Add')
     expect(secondButton.text()).to.equal('Edit')
     expect(thirdButton.text()).to.equal('Delete')
   })
 
-  it('Table has 2 columns: name, description', () => {
+  test('Table has 2 columns: name, description', () => {
     const fieldArray = wrapper.vm.fields
     const firstColumn = fieldArray[0]
     const secondColumn = fieldArray[1]
@@ -225,7 +225,7 @@ describe('Account.vue', () => {
     expect(secondColumn.value).to.equal('description')
   })
 
-  it('At button click, at least 1 object exists in array', () => {
+  test('At button click, at least 1 object exists in array', () => {
     const initialLength = wrapper.vm.accountArray.length
     wrapper.find('button.add')
     wrapper.vm.add(object)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <SaveButton/>
-    <h2>SALDO: {{this.$store.state.CURRENT_ACCOUNT.balance}}</h2>
+    <h2>SALDO:{{balance}}</h2>
     <h1>Reportes</h1>
     <div class="alert alert-danger" role="alert"
     v-if="showGridAlert">Please only select one grid.</div>
@@ -11,12 +11,10 @@
         <div class="row">
         <h3 style = "margin-left:7%; font-size:1em">Filtrar por fecha</h3>
         <select value=''  style = "margin-left:14%" v-model="currentDate">
-
             <option
               v-for="date in dates"
               :key="date"
             >{{date}}</option>
-
         </select>
       </div>
 
@@ -117,28 +115,30 @@ export default {
   methods: {
     deleteIncome() {
       if(this.selected[0].category === "Transference"){
-      this.$store.dispatch('deleteIncome', this.selected[0].name)
-      this.$store.dispatch('deleteExpense', this.selected[0].name)
+      this.$store.dispatch('deleteTransference', this.selected[0].name)
       }
-      else{
-        //delete income outcome con cuenta y nombre, hacer un delete transference, evitar crear ingreso/egreso con el mismo nombre en la misma cuenta
-        //solo crear ingresos con todos los datos
+      else{                
         let itemToDelete
         itemToDelete = {
           name:this.selected[0].name,
           account:this.$store.state.CURRENT_ACCOUNT.name
         }
-        this.$store.dispatch('deleteIncome', this.selected[0].name)
+
+        this.$store.dispatch('deleteIncome', itemToDelete)
       }
     },
     deleteExpense() {
       if(this.selected[0].category === "Transference"){
-      this.$store.dispatch('deleteIncome', this.selected[0].name)
-      this.$store.dispatch('deleteExpense', this.selected[0].name)
+      this.$store.dispatch('deleteTransference', this.selected[0].name)
       }
-      else{
-        this.$store.dispatch('deleteExpense', this.selected[0].name)
-      }
+      else{        
+        let itemToDelete
+        itemToDelete = {
+          name:this.selected[0].name,
+          account:this.$store.state.CURRENT_ACCOUNT.name
+        }
+        this.$store.dispatch('deleteExpense', itemToDelete)
+      }      
     },
     navigateToIncome() {
       this.$router.push('income')
@@ -209,8 +209,6 @@ export default {
 
     items2: function() {
       const objects = []
-
-
       if (this.currentExpenseCategory==='All') {
         for (const element of this.$store.state.EXPENSES) {
           if (this.$store.state.CURRENT_ACCOUNT.name ===
@@ -234,8 +232,6 @@ export default {
         return objects
       }
     },
-
-
     Income_categories: function() {
       var auxArray = [...this.$store.state.INCOME_CATEGORIES];
       auxArray.shift(); 
@@ -252,6 +248,31 @@ export default {
     dates: function() {
       return this.$store.state.DATES;
     },
+
+    balance: function(){
+
+      var currentBalance = 0;
+        for (const element of this.$store.state.INCOMES) {
+          if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
+                currentBalance+=Number.parseInt(element.amount);
+            }
+        }
+
+        for (const element of this.$store.state.EXPENSES) {
+          if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
+                currentBalance-=Number.parseInt(element.amount);
+            }
+        }
+
+        for(var account of this.$store.state.ACCOUNTS){
+          if(this.$store.state.CURRENT_ACCOUNT.name==account.name)
+              account.balance = currentBalance
+
+        }
+        this.$store.state.balance = currentBalance;
+        return currentBalance;
+        
+    }
   },
 }
 </script>
