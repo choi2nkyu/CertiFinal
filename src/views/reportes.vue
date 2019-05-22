@@ -1,7 +1,7 @@
 <template>
   <div>
     <SaveButton/>
-    <h2>SALDO: {{this.$store.state.CURRENT_ACCOUNT.balance}}</h2>
+    <h2>SALDO:{{balance}}</h2>
     <h1>Reportes</h1>
     <div class="alert alert-danger" role="alert"
     v-if="showGridAlert">Please only select one grid.</div>
@@ -123,6 +123,7 @@ export default {
           name:this.selected[0].name,
           account:this.$store.state.CURRENT_ACCOUNT.name
         }
+
         this.$store.dispatch('deleteIncome', itemToDelete)
       }
     },
@@ -238,6 +239,31 @@ export default {
     dates: function() {
       return this.$store.state.DATES;
     },
+
+    balance: function(){
+
+      var currentBalance = 0;
+        for (const element of this.$store.state.INCOMES) {
+          if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
+                currentBalance+=Number.parseInt(element.amount);
+            }
+        }
+
+        for (const element of this.$store.state.EXPENSES) {
+          if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
+                currentBalance-=Number.parseInt(element.amount);
+            }
+        }
+
+        for(var account of this.$store.state.ACCOUNTS){
+          if(this.$store.state.CURRENT_ACCOUNT.name==account.name)
+              account.balance = currentBalance
+
+        }
+        this.$store.state.balance = currentBalance;
+        return currentBalance;
+        
+    }
   },
 }
 </script>
