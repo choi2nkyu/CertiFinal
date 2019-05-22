@@ -2,6 +2,11 @@
   <div class="IncExpForm">
     <SaveButton/>
     <div class="col-lg-5">
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="showFormAlert"
+      >Please fill in all formfields.</div>
       <button type="button" class="btn btn-outline-secondary" @click="navigate">Back</button>
       <form>
         <div class="form-group">
@@ -72,7 +77,7 @@ export default {
       currentAccount: this.$store.state.CURRENT_ACCOUNT.name,
       newCategoryName: '',
       destinationAccount: '',
-
+      showFormAlert: false
     }
   },
   props: {
@@ -108,46 +113,58 @@ export default {
   methods: {
     saveReg() {
       if (this.edit === 'True') {
-        console.log('estoy')
-        const formObject = {
-          oldName: this.oldName,
-          name: this.currentName,
-          category: this.currentCategory,
-          amount: this.currentAmount,
+        if (this.currentName && this.currentCategory && this.currentAmount) {
+          this.showFormAlert = false
+          console.log('estoy')
+          const formObject = {
+            oldName: this.oldName,
+            name: this.currentName,
+            category: this.currentCategory,
+            amount: this.currentAmount,
+          }
+          console.log(this.oldName)
+          this.$store.dispatch('edit' + this.formType, formObject)
+          this.navigate()  
+        } else {
+          this.showFormAlert = true
         }
-        console.log(this.oldName)
-        this.$store.dispatch('edit' + this.formType, formObject)
       } else {
-        let today = new Date()
-        const dd = String(today.getDate()).padStart(2, '0')
-        const mm = String(today.getMonth() + 1).padStart(2, '0') // January is 0!
-        const yyyy = today.getFullYear()
+        if (this.currentName && this.currentCategory && this.currentAmount) {
+          this.showFormAlert = false
+          let today = new Date()
+          const dd = String(today.getDate()).padStart(2, '0')
+          const mm = String(today.getMonth() + 1).padStart(2, '0') // January is 0!
+          const yyyy = today.getFullYear()
 
-        today = dd + '/' + mm + '/' + yyyy
+          today = dd + '/' + mm + '/' + yyyy
 
 
-        const formObject = {
-          name: this.currentName,
-          category: this.currentCategory,
-          amount: this.currentAmount,
-          account: this.currentAccount,
-          date: today,
-        }
-
-        if(this.updateAccountBalance()){
-              this.$store.dispatch('add' + this.formType, formObject)
-              this.$store.dispatch('saveDate', today)
-        }
-
-        if (this.transferenceBool) {
           const formObject = {
             name: this.currentName,
             category: this.currentCategory,
             amount: this.currentAmount,
-            account: this.destinationAccount,
+            account: this.currentAccount,
+            date: today,
           }
 
-          this.$store.dispatch('addIncome', formObject)
+          if(this.updateAccountBalance()){
+                this.$store.dispatch('add' + this.formType, formObject)
+                this.$store.dispatch('saveDate', today)
+          }
+
+          if (this.transferenceBool) {
+            const formObject = {
+              name: this.currentName,
+              category: this.currentCategory,
+              amount: this.currentAmount,
+              account: this.destinationAccount,
+            }
+
+            this.$store.dispatch('addIncome', formObject)
+          }
+          this.navigate()
+        } else {
+          this.showFormAlert = true
         }
       }
     },
