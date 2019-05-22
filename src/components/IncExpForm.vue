@@ -129,7 +129,7 @@ export default {
           this.showFormAlert = true
         }
       } else {
-        if (this.currentName && this.currentCategory && this.currentAmount) {
+        if (this.updateAccountBalance() && this.currentName && this.currentCategory && this.currentAmount) {
           this.showFormAlert = false
           let today = new Date()
           const dd = String(today.getDate()).padStart(2, '0')
@@ -138,36 +138,20 @@ export default {
 
           today = dd + '/' + mm + '/' + yyyy
 
-        const formObject = {
-          name: this.currentName,
-          category: this.currentCategory,
-          amount: this.currentAmount,
-          account: this.currentAccount,
-          date: today,
-          _rowVariant: this.formType=='Income'?'success':'danger'       
-
-        }
-
-        if(this.updateAccountBalance()){
-          if(this.currentName != "" && this.currentCategory != "" && this.currentAmount != "")
-          {
-              this.$store.dispatch('add' + this.formType, formObject)
-              this.$store.dispatch('saveDate', today)
-          }
-          else {
-            alert("Los 3 campos deben tener un valor")
-          }
-        }
           const formObject = {
             name: this.currentName,
             category: this.currentCategory,
             amount: this.currentAmount,
             account: this.currentAccount,
             date: today,
+            _rowVariant: this.formType === 'Income' ? 'success' : 'danger'
           }
-          this.$store.dispatch('addIncome', formObject)
+          this.$store.dispatch('add' + this.formType, formObject)
+          this.$store.dispatch('saveDate', today)
+          this.navigate()
+        } else {
+          this.showFormAlert = true
         }
-
       }
     },
     saveCategory() {
