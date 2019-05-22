@@ -6,7 +6,7 @@ import Vuex from 'vuex'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('IncExpForm.vue', () => {
+suite('IncExpForm.vue', () => {
   let actions
   let store
   let state
@@ -14,7 +14,7 @@ describe('IncExpForm.vue', () => {
   let wrapper
   const formType = 'Expense'
 
-  beforeEach(function() {
+  setup(function() {
     mutations = {
       setCurrentAccount(context, currentAccount) {
         context.CURRENT_ACCOUNT = currentAccount
@@ -206,16 +206,16 @@ describe('IncExpForm.vue', () => {
       localVue,
       propsData: { formType } })
   })
-  it('renders Name input', () => {
+  test('renders Name input', () => {
     expect(wrapper.find('#Name').exists())
   })
-  it('renders Category label', () => {
+  test('renders Category label', () => {
     expect(wrapper.find('#LblCategory').exists())
   })
-  it('renders Amount input', () => {
+  test('renders Amount input', () => {
     expect(wrapper.find('#Amount').exists())
   })
-  it('renders expense in the titles when the formType is expense', () => {
+  test('renders expense in the titles when the formType is expense', () => {
     const title1 = wrapper.find('#lblName')
     const title2 = wrapper.find('#lblCategory')
     const title3 = wrapper.find('#lblAmount')
@@ -223,14 +223,14 @@ describe('IncExpForm.vue', () => {
     expect(title2.text()).to.equal('Expense Category')
     expect(title3.text()).to.equal('Expense Amount')
   })
-  it('Category has 4 default options', () => {
+  test('Category has 4 default options', () => {
     const optionArray = wrapper.findAll('option')
     expect(optionArray.at(0).text()).to.equal('Add...')
     expect(optionArray.at(1).text()).to.equal('Expenses')
     expect(optionArray.at(2).text()).to.equal('Transference')
     expect(optionArray.at(3).text()).to.equal('Other')
   })
-  it('Deletes the Selected Category', () => {
+  test('Deletes the Selected Category', () => {
     const deleteButton = wrapper.find('#deleteButton')
     wrapper.vm.currentCategory = 'Transference'
     deleteButton.trigger('click')
