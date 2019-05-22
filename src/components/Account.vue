@@ -121,6 +121,9 @@ export default {
         }
         this.add(object)
         this.addAccountToStore()
+        this.$refs.accountInput.forEach((element) => {
+          element.value = ""
+        })
       } else {
         this.showInputAlert = true
       }
@@ -146,6 +149,8 @@ export default {
       if (this.selected.length == 1) {
         this.showGridAlert = false
         this.changeButton = true
+        this.$refs.accountInput[0].value = this.selected[0].name
+        this.$refs.accountInput[1].value = this.selected[0].description
       } else {
         this.showGridAlert = true
         this.changeButton = false
@@ -160,12 +165,15 @@ export default {
       }
     },
     confirmClicked() {
+      this.changeButton = false
       this.$store.state.ACCOUNTS.forEach((element) => {
         if (element.id == this.selected[0].id) {
           element.name = this.$refs.accountInput[0].value
           element.description = this.$refs.accountInput[1].value
-          
         }
+      })
+      this.$refs.accountInput.forEach((element) => {
+        element.value = ""
       })
     },
     navigate() {

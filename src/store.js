@@ -15,6 +15,7 @@ export const state = {
   CURRENT_ITEM: { name: '' },
   CURRENT_ACCOUNT: {},
   count: 0,
+  id: 0
 }
 export const mutations = {
   setCurrentAccount(context, currentAccount) {

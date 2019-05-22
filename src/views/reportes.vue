@@ -147,13 +147,22 @@ export default {
       this.$router.push('expense')
     },
     navigateToEditExpense() {
-      console.log(this.selected[0])
-      this.$store.state.CURRENT_ITEM = this.selected[0]
-      this.$router.push('editexpense')
+      if(this.selected.length === 1) {
+        this.showGridAlert = false
+        this.$store.state.CURRENT_ITEM = this.selected[0]
+        this.$router.push('editexpense') 
+      } else {
+        this.showGridAlert = true
+      }
     },
     navigateToEditIncome() {
-      this.$store.state.CURRENT_ITEM = this.selected[0]
-      this.$router.push('editincome')
+      if(this.selected.length === 1) {
+        this.showGridAlert = false
+        this.$store.state.CURRENT_ITEM = this.selected[0]
+        this.$router.push('editincome') 
+      } else {
+        this.showGridAlert = true
+      }
     },
     filterByCategories() {
       let auxItems
