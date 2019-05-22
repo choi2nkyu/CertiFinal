@@ -67,10 +67,36 @@ export const mutations = {
   },
 
   addExpense(context, newExpense) {
-    context.EXPENSES.push(newExpense)
-  },
+    let controlExpense = true;
+    context.EXPENSES.forEach(
+      function(element) {              
+        if (element.name === newExpense.name && element.account === context.CURRENT_ACCOUNT.name) {
+        controlExpense = false;        
+        }
+      })
+      if(controlExpense){
+      alert("Expense Added Succesfully")
+      context.EXPENSES.push(newExpense)
+      }
+      else{
+        alert("No puede ingresar ingresos con el mismo nombre en la misma cuenta")
+      }    
+  },  
   addIncome(context, newIncome) {
-    context.INCOMES.push(newIncome)
+    let controlIncome = true;
+    context.INCOMES.forEach(
+      function(element) {              
+        if (element.name === newIncome.name && element.account === context.CURRENT_ACCOUNT.name) {
+        controlIncome = false;        
+        }
+      })
+      if(controlIncome){
+      alert("Income Added Succesfully")
+      context.INCOMES.push(newIncome)
+      }
+      else{
+        alert("No puede ingresar egresos con el mismo nombre en la misma cuenta")
+      }    
   },
 
   editIncome(context, editedIncome) {
@@ -106,21 +132,39 @@ export const mutations = {
           }
         })
   },
-  deleteIncome(context, incomeName) {
+  deleteTransference(context,transferenceName){
+    context.INCOMES.forEach(
+      function(element) {
+        const indexofElement = context.INCOMES.indexOf(element)
+        if (element.name === transferenceName) {
+          context.INCOMES.splice(indexofElement, 1)
+        }
+      }
+  )
+  context.EXPENSES.forEach(
+    function(element) {
+      const indexofElement = context.EXPENSES.indexOf(element)
+      if (element.name === transferenceName) {
+        context.EXPENSES.splice(indexofElement, 1)
+      }
+    }
+)
+  },
+  deleteIncome(context, incomeObject) {
     context.INCOMES.forEach(
         function(element) {
           const indexofElement = context.INCOMES.indexOf(element)
-          if (element.name === incomeName) {
+          if (element.name === incomeObject.name && element.account === incomeObject.account) {
             context.INCOMES.splice(indexofElement, 1)
           }
         }
     )
   },
-  deleteExpense(context, expenseName) {
+  deleteExpense(context, expenseObject) {
     context.EXPENSES.forEach(
         function(element) {
           const indexofElement = context.EXPENSES.indexOf(element)
-          if (element.name === expenseName) {
+          if (element.name === expenseObject.name && element.account === expenseObject.account) {
             context.EXPENSES.splice(indexofElement, 1)
           }
         }
@@ -208,11 +252,14 @@ export const actions = {
   editAccount(context, accountName, editedAccount) {
     context.commit('editAccount', accountName, editedAccount)
   },
-  deleteIncome(context, incomeName) {
-    context.commit('deleteIncome', incomeName)
+  deleteTransference(context,transferenceName){
+    context.commit('deleteTransference',transferenceName)
   },
-  deleteExpense(context, expenseName) {
-    context.commit('deleteExpense', expenseName)
+  deleteIncome(context, incomeObject) {
+    context.commit('deleteIncome', incomeObject)
+  },
+  deleteExpense(context, expenseObject) {
+    context.commit('deleteExpense', expenseObject)
   },
   deleteIncomeCategory(context, categoryName) {
     context.commit('deleteIncomeCategory', categoryName)
