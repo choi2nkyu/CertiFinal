@@ -113,7 +113,7 @@ export default {
           oldName: this.oldName,
           name: this.currentName,
           category: this.currentCategory,
-          amount: this.currentAmount,
+          amount: this.currentAmount
         }
         console.log(this.oldName)
         this.$store.dispatch('edit' + this.formType, formObject)
@@ -132,6 +132,8 @@ export default {
           amount: this.currentAmount,
           account: this.currentAccount,
           date: today,
+          _rowVariant: this.formType=='Income'?'success':'danger'       
+
         }
 
         if(this.updateAccountBalance()){
@@ -146,9 +148,9 @@ export default {
             amount: this.currentAmount,
             account: this.destinationAccount,
           }
-
           this.$store.dispatch('addIncome', formObject)
         }
+
       }
     },
     saveCategory() {

@@ -11,12 +11,10 @@
         <div class="row">
         <h3 style = "margin-left:7%; font-size:1em">Filtrar por fecha</h3>
         <select value=''  style = "margin-left:14%" v-model="currentDate">
-
             <option
               v-for="date in dates"
               :key="date"
             >{{date}}</option>
-
         </select>
       </div>
 
