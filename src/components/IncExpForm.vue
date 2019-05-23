@@ -42,8 +42,11 @@
             @click="saveCategory"
           >Create Category</button>
           <br>
-          <label for="destinationAccount" v-if="transferenceBool">Account to Transfer Amount</label>
-          <select class="form-control" v-model="destinationAccount" v-if="transferenceBool" id="destinationAccount">
+          <label for="destinationAccount"
+          v-if="transferenceBool">Account to Transfer Amount</label>
+          <select class="form-control"
+          v-model="destinationAccount" v-if="transferenceBool"
+          id="destinationAccount">
             <option
               v-for="account in accounts"
               :key="account.name"
@@ -52,13 +55,16 @@
           </select>
           <br>
           <label for="Amount" id="lblAmount">{{formType}} Amount</label>
-          <input type="number" class="form-control" v-model="currentAmount" id="Amount">
+          <input type="number" class="form-control"
+          v-model="currentAmount" id="Amount">
         </div>
       </form>
     </div>
     <div class="col-lg-5">
-      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="!edit" id="buttonCreate" >Create</button>
-      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="edit">Edit</button>
+      <button type="button" class="btn btn-primary"
+      @click="saveReg" v-if ="!edit" id="buttonCreate" >Create</button>
+      <button type="button" class="btn btn-primary"
+      @click="saveReg" v-if ="edit">Edit</button>
     </div>
   </div>
 </template>
@@ -103,7 +109,8 @@ export default {
       }
     },
     transferenceBool: function() {
-      if (this.currentCategory === 'Transference' && this.formType === 'Expense') {
+      if (this.currentCategory ===
+      'Transference' && this.formType === 'Expense') {
         return true
       } else {
         return false
@@ -129,11 +136,13 @@ export default {
           this.showFormAlert = true
         }
       } else {
-        if (this.updateAccountBalance() && this.currentName && this.currentCategory && this.currentAmount) {
+        if (this.updateAccountBalance() &&
+        this.currentName && this.currentCategory && this.currentAmount) {
           this.showFormAlert = false
           let today = new Date()
           const dd = String(today.getDate()).padStart(2, '0')
-          const mm = String(today.getMonth() + 1).padStart(2, '0') // January is 0!
+          const mm =
+          String(today.getMonth() + 1).padStart(2, '0') // January is 0!
           const yyyy = today.getFullYear()
 
           today = dd + '/' + mm + '/' + yyyy
@@ -183,13 +192,16 @@ export default {
     },
     updateAccountBalance() {
       for (const account of this.$store.state.ACCOUNTS) {
-        if (account.name == this.currentAccount) {
-          const newBalanceAddition = Number.parseInt(account.balance) + Number.parseInt(this.currentAmount)
-          const newBalanceSubstraction = Number.parseInt(account.balance) - Number.parseInt(this.currentAmount)
-          if (this.formType == 'Income') {
+        if (account.name === this.currentAccount) {
+          const newBalanceAddition =
+          Number.parseInt(account.balance) + Number.parseInt(this.currentAmount)
+          const newBalanceSubstraction =
+          Number.parseInt(account.balance) - Number.parseInt(this.currentAmount)
+          if (this.formType === 'Income') {
             account.balance = newBalanceAddition
             return true
-          } else if (this.formType == 'Expense' && newBalanceSubstraction >= 0) {
+          } else if (this.formType === 'Expense' &&
+          newBalanceSubstraction >= 0) {
             account.balance = newBalanceSubstraction
             return true
           } else {
