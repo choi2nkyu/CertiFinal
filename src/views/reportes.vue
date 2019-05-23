@@ -101,7 +101,6 @@
 </template>
 
 <script>
-import { truncate } from 'fs'
 import SaveButton from '@/components/SaveButton.vue'
 export default {
   components: { SaveButton },
@@ -120,7 +119,7 @@ export default {
       if (this.selected[0].category === 'Transference') {
         this.$store.dispatch('deleteTransference', this.selected[0].name)
       } else {
-        let itemToDelete
+        const itemToDelete
         itemToDelete = {
           name: this.selected[0].name,
           account: this.$store.state.CURRENT_ACCOUNT.name,
@@ -133,7 +132,7 @@ export default {
       if (this.selected[0].category === 'Transference') {
         this.$store.dispatch('deleteTransference', this.selected[0].name)
       } else {
-        let itemToDelete
+        const itemToDelete
         itemToDelete = {
           name: this.selected[0].name,
           account: this.$store.state.CURRENT_ACCOUNT.name,
@@ -166,7 +165,7 @@ export default {
       }
     },
     filterByCategories() {
-      let auxItems
+      const auxItems
     },
     rowSelected(items) {
       this.selected = items
@@ -259,13 +258,14 @@ export default {
       }
 
       for (const element of this.$store.state.EXPENSES) {
-        if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
+        if (this.$store.state.CURRENT_ACCOUNT.name === element.account) {
           currentBalance -= Number.parseInt(element.amount)
         }
       }
 
       for (const account of this.$store.state.ACCOUNTS) {
-        if (this.$store.state.CURRENT_ACCOUNT.name == account.name) {account.balance = currentBalance}
+        if (this.$store.state.CURRENT_ACCOUNT.name ===
+         account.name) {account.balance = currentBalance}
       }
       this.$store.state.balance = currentBalance
       return currentBalance

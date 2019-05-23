@@ -7,11 +7,13 @@
         role="alert"
         v-if="showFormAlert"
       >Please fill in all formfields.</div>
-      <button type="button" class="btn btn-outline-secondary" @click="navigate" id= "buttonBack">Back</button>
+      <button type="button" class="btn btn-outline-secondary"
+      @click="navigate" id= "buttonBack">Back</button>
       <form>
         <div class="form-group">
           <label for="Name" id="lblName">{{formType}} Name</label>
-          <input type="text" class="form-control" v-model="currentName" id="Name">
+          <input type="text" class="form-control"
+          v-model="currentName" id="Name">
           <label for="Category" id="lblCategory">{{formType}} Category</label>
           <select class="form-control" v-model="currentCategory" id="Category">
             <option
@@ -27,7 +29,8 @@
             id="deleteButton"
           >Delete Selected Category</button>
           <br>
-          <label for="newCategoryName" v-if="categoryBool">New Category Name</label>
+          <label for="newCategoryName" 
+          v-if="categoryBool">New Category Name</label>
           <input
             type="text"
             class="form-control"
@@ -42,7 +45,8 @@
             @click="saveCategory"
           >Create Category</button>
           <br>
-          <label for="destinationAccount" v-if="transferenceBool">Account to Transfer Amount</label>
+          <label for="destinationAccount" 
+          v-if="transferenceBool">Account to Transfer Amount</label>
           <select class="form-control" v-model="destinationAccount" v-if="transferenceBool" id="destinationAccount">
             <option
               v-for="account in accounts"
