@@ -40,4 +40,18 @@ suite('Test store function', () => {
     editIncome(state, modifiedIncome)
     expect(state.INCOMES.length).to.equal(initialLength1 + 1)
   })
+
+  test('Test delete income function', () => {
+    const initLength = state.INCOMES.length
+    var income2 = {
+      name: 'great name',
+      category: 'Other',
+      amount: 13,
+      date: '10/11/2019'
+    }
+    addIncome(state, income2)
+    expect(state.INCOMES.length).to.equal(initLength + 1)
+    deleteIncome(state, income2)
+    expect(state.INCOMES.length).to.equal(initLength)
+  })
 })
