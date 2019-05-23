@@ -29,7 +29,7 @@
             id="deleteButton"
           >Delete Selected Category</button>
           <br>
-          <label for="newCategoryName" 
+          <label for="newCategoryName"
           v-if="categoryBool">New Category Name</label>
           <input
             type="text"
@@ -208,7 +208,7 @@ export default {
             account.balance = newBalanceSubstraction
             return true
           } else {
-            alert('There is not enough money in the account to create this expense')
+            alert('There is not enough money')
             return false
           }
         }
