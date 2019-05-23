@@ -285,9 +285,13 @@ export const actions = {
 
     if (condition) {context.commit('saveDate', date)}
   },
-
 }
 export default new Vuex.Store({
+  state,
+  mutations,
+  actions,
+})
+export const storeTest= new Vuex.Store({
   state,
   mutations,
   actions,
