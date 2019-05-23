@@ -140,14 +140,14 @@ export default {
     },
     rowSelected(items) {
       this.selected = items
-      if (items.length == 1) {
+      if (items.length === 1) {
         this.showDetailButton = true
       } else {
         this.showDetailButton = false
       }
     },
     editClicked() {
-      if (this.selected.length == 1) {
+      if (this.selected.length === 1) {
         this.showGridAlert = false
         this.changeButton = true
         this.$refs.accountInput[0].value = this.selected[0].name
@@ -158,7 +158,7 @@ export default {
       }
     },
     deleteClicked() {
-      if (this.selected.length == 1) {
+      if (this.selected.length === 1) {
         this.showGridAlert = false
         this.$store.dispatch('deleteAccount', this.selected[0].name)
       } else {
@@ -168,7 +168,7 @@ export default {
     confirmClicked() {
       this.changeButton = false
       this.$store.state.ACCOUNTS.forEach((element) => {
-        if (element.id == this.selected[0].id) {
+        if (element.id === this.selected[0].id) {
           element.name = this.$refs.accountInput[0].value
           element.description = this.$refs.accountInput[1].value
         }
@@ -178,7 +178,7 @@ export default {
       })
     },
     navigate() {
-      if (this.selected.length == 1) {
+      if (this.selected.length === 1) {
         this.$router.push('reportes')
         this.showGridAlert = false
         this.$store.state.CURRENT_ACCOUNT = this.selected[0]
