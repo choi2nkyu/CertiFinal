@@ -7,7 +7,7 @@
         role="alert"
         v-if="showFormAlert"
       >Please fill in all formfields.</div>
-      <button type="button" class="btn btn-outline-secondary" @click="navigate">Back</button>
+      <button type="button" class="btn btn-outline-secondary" @click="navigate" id= "buttonBack">Back</button>
       <form>
         <div class="form-group">
           <label for="Name" id="lblName">{{formType}} Name</label>
@@ -57,7 +57,7 @@
       </form>
     </div>
     <div class="col-lg-5">
-      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="!edit" >Create</button>
+      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="!edit" id="buttonCreate" >Create</button>
       <button type="button" class="btn btn-primary" @click="saveReg" v-if ="edit">Edit</button>
     </div>
   </div>

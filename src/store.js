@@ -75,8 +75,7 @@ export const mutations = {
         controlExpense = false;        
         }
       })
-      if(controlExpense){
-      alert("Expense Added Succesfully")
+      if(controlExpense){      
       context.EXPENSES.push(newExpense)
       }
       else{
@@ -91,8 +90,7 @@ export const mutations = {
         controlIncome = false;        
         }
       })
-      if(controlIncome){
-      alert("Income Added Succesfully")
+      if(controlIncome){    
       context.INCOMES.push(newIncome)
       }
       else{
