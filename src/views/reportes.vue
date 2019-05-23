@@ -119,7 +119,7 @@ export default {
       if (this.selected[0].category === 'Transference') {
         this.$store.dispatch('deleteTransference', this.selected[0].name)
       } else {
-        const itemToDelete
+        let itemToDelete
         itemToDelete = {
           name: this.selected[0].name,
           account: this.$store.state.CURRENT_ACCOUNT.name,
@@ -132,7 +132,7 @@ export default {
       if (this.selected[0].category === 'Transference') {
         this.$store.dispatch('deleteTransference', this.selected[0].name)
       } else {
-        const itemToDelete
+        let itemToDelete
         itemToDelete = {
           name: this.selected[0].name,
           account: this.$store.state.CURRENT_ACCOUNT.name,
@@ -163,9 +163,6 @@ export default {
       } else {
         this.showGridAlert = true
       }
-    },
-    filterByCategories() {
-      const auxItems
     },
     rowSelected(items) {
       this.selected = items
@@ -252,7 +249,7 @@ export default {
     balance: function() {
       let currentBalance = 0
       for (const element of this.$store.state.INCOMES) {
-        if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
+        if (this.$store.state.CURRENT_ACCOUNT.name === element.account) {
           currentBalance += Number.parseInt(element.amount)
         }
       }
