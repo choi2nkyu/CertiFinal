@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { shallowMount} from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import Account from '@/components/Account.vue'
 import { storeTest } from '@/store.js'
 
@@ -9,8 +9,8 @@ suite('Account.vue', () => {
   let wrapper
   const object = [{ name: 'Savings', description: 'Ordinary Savings' }]
   setup(function() {
-    store = storeTest   
-    wrapper = shallowMount(Account,{store})
+    store = storeTest
+    wrapper = shallowMount(Account, { store })
   })
   test('Account has 3 buttons: add, edit, delete', () => {
     const buttonArray = wrapper.findAll('button')

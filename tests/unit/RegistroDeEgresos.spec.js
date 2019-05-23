@@ -9,7 +9,7 @@ const { eraseAllData } = mutations
 suite('Test store function', () => {
   test('Add expense to the Expense Report', () => {
     const initialLength = state.EXPENSES.length
-    var expense = {
+    const expense = {
       name: 'test name',
       category: 'Salary',
       amount: 15,
@@ -20,20 +20,20 @@ suite('Test store function', () => {
   })
 
   test('Test edit expense function', () => {
-    //eraseAllData()
+    // eraseAllData()
     const initialLength1 = state.EXPENSES.length
-    var expense1 = {
+    const expense1 = {
       name: 'another name',
       category: 'Salary',
       amount: 15,
       date: '10/11/2019',
     }
-    var modifiedExpense = {
+    const modifiedExpense = {
       oldName: 'another name',
       name: 'modified name',
       category: 'Salary',
       amount: 19,
-      date: '10/11/2019'
+      date: '10/11/2019',
     }
     addExpense(state, expense1)
     expect(state.EXPENSES.length).to.equal(initialLength1 + 1)
@@ -43,11 +43,11 @@ suite('Test store function', () => {
 
   test('Test delete expense function', () => {
     const initLength = state.EXPENSES.length
-    var expense2 = {
+    const expense2 = {
       name: 'great name',
       category: 'Other',
       amount: 13,
-      date: '10/11/2019'
+      date: '10/11/2019',
     }
     addExpense(state, expense2)
     expect(state.EXPENSES.length).to.equal(initLength + 1)

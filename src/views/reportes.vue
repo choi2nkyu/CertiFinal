@@ -101,10 +101,10 @@
 </template>
 
 <script>
-import { truncate } from 'fs';
-import SaveButton from '@/components/SaveButton.vue';
+import { truncate } from 'fs'
+import SaveButton from '@/components/SaveButton.vue'
 export default {
-  components:{SaveButton},
+  components: { SaveButton },
   data() {
     return {
       fields: ['name', 'category', 'amount', 'date'],
@@ -117,31 +117,29 @@ export default {
   },
   methods: {
     deleteIncome() {
-      if(this.selected[0].category === "Transference"){
-      this.$store.dispatch('deleteTransference', this.selected[0].name)
-      }
-      else{                
+      if (this.selected[0].category === 'Transference') {
+        this.$store.dispatch('deleteTransference', this.selected[0].name)
+      } else {
         let itemToDelete
         itemToDelete = {
-          name:this.selected[0].name,
-          account:this.$store.state.CURRENT_ACCOUNT.name
+          name: this.selected[0].name,
+          account: this.$store.state.CURRENT_ACCOUNT.name,
         }
 
         this.$store.dispatch('deleteIncome', itemToDelete)
       }
     },
     deleteExpense() {
-      if(this.selected[0].category === "Transference"){
-      this.$store.dispatch('deleteTransference', this.selected[0].name)
-      }
-      else{        
+      if (this.selected[0].category === 'Transference') {
+        this.$store.dispatch('deleteTransference', this.selected[0].name)
+      } else {
         let itemToDelete
         itemToDelete = {
-          name:this.selected[0].name,
-          account:this.$store.state.CURRENT_ACCOUNT.name
+          name: this.selected[0].name,
+          account: this.$store.state.CURRENT_ACCOUNT.name,
         }
         this.$store.dispatch('deleteExpense', itemToDelete)
-      }      
+      }
     },
     navigateToIncome() {
       this.$router.push('income')
@@ -150,19 +148,19 @@ export default {
       this.$router.push('expense')
     },
     navigateToEditExpense() {
-      if(this.selected.length === 1) {
+      if (this.selected.length === 1) {
         this.showGridAlert = false
         this.$store.state.CURRENT_ITEM = this.selected[0]
-        this.$router.push('editexpense') 
+        this.$router.push('editexpense')
       } else {
         this.showGridAlert = true
       }
     },
     navigateToEditIncome() {
-      if(this.selected.length === 1) {
+      if (this.selected.length === 1) {
         this.showGridAlert = false
         this.$store.state.CURRENT_ITEM = this.selected[0]
-        this.$router.push('editincome') 
+        this.$router.push('editincome')
       } else {
         this.showGridAlert = true
       }
@@ -185,7 +183,7 @@ export default {
       const objects = []
 
 
-      if (this.currentIncomeCategory==='All') {
+      if (this.currentIncomeCategory === 'All') {
         for (const element of this.$store.state.INCOMES) {
           if (this.$store.state.CURRENT_ACCOUNT.name ===
           element.account) {objects.push(element)}
@@ -195,8 +193,8 @@ export default {
         for (const element of this.$store.state.INCOMES) {
           if (this.currentDate === element.date) {objects.push(element)}
         }
-        this.currentDate='';
-        this.currentIncomeCategory='All';
+        this.currentDate = ''
+        this.currentIncomeCategory = 'All'
         return objects
       } else {
         for (const element of this.$store.state.INCOMES) {
@@ -212,7 +210,7 @@ export default {
 
     items2: function() {
       const objects = []
-      if (this.currentExpenseCategory==='All') {
+      if (this.currentExpenseCategory === 'All') {
         for (const element of this.$store.state.EXPENSES) {
           if (this.$store.state.CURRENT_ACCOUNT.name ===
           element.account) {objects.push(element)}
@@ -222,8 +220,8 @@ export default {
         for (const element of this.$store.state.EXPENSES) {
           if (this.currentDate === element.date) {objects.push(element)}
         }
-        this.currentDate='';
-        this.currentExpenseCategory='All';
+        this.currentDate = ''
+        this.currentExpenseCategory = 'All'
         return objects
       } else {
         for (const element of this.$store.state.EXPENSES) {
@@ -236,46 +234,42 @@ export default {
       }
     },
     Income_categories: function() {
-      var auxArray = [...this.$store.state.INCOME_CATEGORIES];
-      auxArray.shift(); 
-      auxArray.unshift({name: 'All'});
-      return auxArray;
+      const auxArray = [...this.$store.state.INCOME_CATEGORIES]
+      auxArray.shift()
+      auxArray.unshift({ name: 'All' })
+      return auxArray
     },
     Expense_categories: function() {
-      var auxArray = [...this.$store.state.EXPENSE_CATEGORIES];
-      auxArray.shift(); 
-      auxArray.unshift({name: 'All'});
-      return auxArray;
+      const auxArray = [...this.$store.state.EXPENSE_CATEGORIES]
+      auxArray.shift()
+      auxArray.unshift({ name: 'All' })
+      return auxArray
     },
 
     dates: function() {
-      return this.$store.state.DATES;
+      return this.$store.state.DATES
     },
 
-    balance: function(){
-
-      var currentBalance = 0;
-        for (const element of this.$store.state.INCOMES) {
-          if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
-                currentBalance+=Number.parseInt(element.amount);
-            }
+    balance: function() {
+      let currentBalance = 0
+      for (const element of this.$store.state.INCOMES) {
+        if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
+          currentBalance += Number.parseInt(element.amount)
         }
+      }
 
-        for (const element of this.$store.state.EXPENSES) {
-          if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
-                currentBalance-=Number.parseInt(element.amount);
-            }
+      for (const element of this.$store.state.EXPENSES) {
+        if (this.$store.state.CURRENT_ACCOUNT.name == element.account) {
+          currentBalance -= Number.parseInt(element.amount)
         }
+      }
 
-        for(var account of this.$store.state.ACCOUNTS){
-          if(this.$store.state.CURRENT_ACCOUNT.name==account.name)
-              account.balance = currentBalance
-
-        }
-        this.$store.state.balance = currentBalance;
-        return currentBalance;
-        
-    }
+      for (const account of this.$store.state.ACCOUNTS) {
+        if (this.$store.state.CURRENT_ACCOUNT.name == account.name) {account.balance = currentBalance}
+      }
+      this.$store.state.balance = currentBalance
+      return currentBalance
+    },
   },
 }
 </script>

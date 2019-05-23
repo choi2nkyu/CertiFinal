@@ -15,49 +15,49 @@ export const state = {
   CURRENT_ITEM: { name: '' },
   CURRENT_ACCOUNT: {},
   count: 0,
-  id: 0
+  id: 0,
 }
 export const mutations = {
   setCurrentAccount(context, currentAccount) {
     context.CURRENT_ACCOUNT = currentAccount
   },
   addAccount(context, newAccount) {
-    let controlAccount = true;
+    let controlAccount = true
     context.ACCOUNTS.forEach(
-      function(element) {              
-        if (element.name === newAccount.name) {
-        controlAccount = false;        
-        }
-      })
-      if(controlAccount){
-    context.ACCOUNTS.push(newAccount)
-      }
-      else{
-        alert("No puede ingresar cuentas con el mismo nombre")
-      }
-  },
-  deleteAccount(context, accountName) {    
-    let controlExpense = true;
-    let controlIncome = true;
-    context.EXPENSES.forEach(
-      function(element) {              
-        if (element.account === accountName) {
-        controlExpense = false;        
-        }
-      })
-      context.INCOMES.forEach(
-        function(element) {              
-          if (element.account === accountName) {
-          controlIncome = false;        
+        function(element) {
+          if (element.name === newAccount.name) {
+            controlAccount = false
           }
         })
-      if(controlExpense && controlIncome){        
-    context.ACCOUNTS.forEach(function(element) {
-      const indexofElement = context.ACCOUNTS.indexOf(element)
-      if (element.name === accountName) {
-        context.ACCOUNTS.splice(indexofElement, 1)
-      }
-    })}
+    if (controlAccount) {
+      context.ACCOUNTS.push(newAccount)
+    } else {
+      alert('No puede ingresar cuentas con el mismo nombre')
+    }
+  },
+  deleteAccount(context, accountName) {
+    let controlExpense = true
+    let controlIncome = true
+    context.EXPENSES.forEach(
+        function(element) {
+          if (element.account === accountName) {
+            controlExpense = false
+          }
+        })
+    context.INCOMES.forEach(
+        function(element) {
+          if (element.account === accountName) {
+            controlIncome = false
+          }
+        })
+    if (controlExpense && controlIncome) {
+      context.ACCOUNTS.forEach(function(element) {
+        const indexofElement = context.ACCOUNTS.indexOf(element)
+        if (element.name === accountName) {
+          context.ACCOUNTS.splice(indexofElement, 1)
+        }
+      })
+    }
   },
   addIncomeCategory(context, newCategory) {
     context.INCOME_CATEGORIES.push(newCategory)
@@ -68,38 +68,38 @@ export const mutations = {
   },
 
   addExpense(context, newExpense) {
-    let controlExpense = true;
+    let controlExpense = true
     context.EXPENSES.forEach(
-      function(element) {              
-        if (element.name === newExpense.name && element.account === context.CURRENT_ACCOUNT.name) {
-        controlExpense = false;        
-        }
-      })
-      if(controlExpense){      
+        function(element) {
+          if (element.name === newExpense.name &&
+             element.account === context.CURRENT_ACCOUNT.name) {
+            controlExpense = false
+          }
+        })
+    if (controlExpense) {
       context.EXPENSES.push(newExpense)
-      }
-      else{
-        alert("No puede ingresar ingresos con el mismo nombre en la misma cuenta")
-      }    
-  },  
+    } else {
+      alert('No puede ingresar ingresos con el mismo nombre en la misma cuenta')
+    }
+  },
   addIncome(context, newIncome) {
-    let controlIncome = true;
+    let controlIncome = true
     context.INCOMES.forEach(
-      function(element) {              
-        if (element.name === newIncome.name && element.account === context.CURRENT_ACCOUNT.name) {
-        controlIncome = false;        
-        }
-      })
-      if(controlIncome){    
+        function(element) {
+          if (element.name === newIncome.name &&
+             element.account === context.CURRENT_ACCOUNT.name) {
+            controlIncome = false
+          }
+        })
+    if (controlIncome) {
       context.INCOMES.push(newIncome)
-      }
-      else{
-        alert("No puede ingresar egresos con el mismo nombre en la misma cuenta")
-      }    
+    } else {
+      alert('No puede ingresar egresos con el mismo nombre en la misma cuenta')
+    }
   },
 
   editIncome(context, editedIncome) {
-      context.INCOMES.forEach(
+    context.INCOMES.forEach(
         function(element) {
           const indexofElement = context.INCOMES.indexOf(element)
           if (element.name === editedIncome.oldName) {
@@ -131,29 +131,30 @@ export const mutations = {
           }
         })
   },
-  deleteTransference(context,transferenceName){
+  deleteTransference(context, transferenceName) {
     context.INCOMES.forEach(
-      function(element) {
-        const indexofElement = context.INCOMES.indexOf(element)
-        if (element.name === transferenceName) {
-          context.INCOMES.splice(indexofElement, 1)
+        function(element) {
+          const indexofElement = context.INCOMES.indexOf(element)
+          if (element.name === transferenceName) {
+            context.INCOMES.splice(indexofElement, 1)
+          }
         }
-      }
-  )
-  context.EXPENSES.forEach(
-    function(element) {
-      const indexofElement = context.EXPENSES.indexOf(element)
-      if (element.name === transferenceName) {
-        context.EXPENSES.splice(indexofElement, 1)
-      }
-    }
-)
+    )
+    context.EXPENSES.forEach(
+        function(element) {
+          const indexofElement = context.EXPENSES.indexOf(element)
+          if (element.name === transferenceName) {
+            context.EXPENSES.splice(indexofElement, 1)
+          }
+        }
+    )
   },
   deleteIncome(context, incomeObject) {
     context.INCOMES.forEach(
         function(element) {
           const indexofElement = context.INCOMES.indexOf(element)
-          if (element.name === incomeObject.name && element.account === incomeObject.account) {
+          if (element.name === incomeObject.name &&
+             element.account === incomeObject.account) {
             context.INCOMES.splice(indexofElement, 1)
           }
         }
@@ -163,7 +164,8 @@ export const mutations = {
     context.EXPENSES.forEach(
         function(element) {
           const indexofElement = context.EXPENSES.indexOf(element)
-          if (element.name === expenseObject.name && element.account === expenseObject.account) {
+          if (element.name === expenseObject.name &&
+             element.account === expenseObject.account) {
             context.EXPENSES.splice(indexofElement, 1)
           }
         }
@@ -192,20 +194,21 @@ export const mutations = {
   saveAllData() {
     window.localStorage.clear()
     window.localStorage.setItem('storage', JSON.stringify(state))
-    console.log(window.localStorage.length);
-
+    console.log(window.localStorage.length)
   },
-  retrieveAllData(){
-
-    state.ACCOUNTS = JSON.parse(window.localStorage.getItem('storage')).ACCOUNTS;
-    state.EXPENSE_CATEGORIES = JSON.parse(window.localStorage.getItem('storage')).EXPENSE_CATEGORIES;
-    state.INCOME_CATEGORIES = JSON.parse(window.localStorage.getItem('storage')).INCOME_CATEGORIES;
-    state.INCOMES = JSON.parse(window.localStorage.getItem('storage')).INCOMES;
-    state.EXPENSES = JSON.parse(window.localStorage.getItem('storage')).EXPENSES;
-    state.DATES = JSON.parse(window.localStorage.getItem('storage')).DATES;
-    state.CURRENT_ACCOUNT = JSON.parse(window.localStorage.getItem('storage')).CURRENT_ACCOUNT;
-    state.CURRENT_ITEM = JSON.parse(window.localStorage.getItem('storage')).CURRENT_ITEM;
-    
+  retrieveAllData() {
+    state.ACCOUNTS = JSON.parse(window.localStorage.getItem('storage')).ACCOUNTS
+    state.EXPENSE_CATEGORIES =
+    JSON.parse(window.localStorage.getItem('storage')).EXPENSE_CATEGORIES
+    state.INCOME_CATEGORIES =
+    JSON.parse(window.localStorage.getItem('storage')).INCOME_CATEGORIES
+    state.INCOMES = JSON.parse(window.localStorage.getItem('storage')).INCOMES
+    state.EXPENSES = JSON.parse(window.localStorage.getItem('storage')).EXPENSES
+    state.DATES = JSON.parse(window.localStorage.getItem('storage')).DATES
+    state.CURRENT_ACCOUNT =
+    JSON.parse(window.localStorage.getItem('storage')).CURRENT_ACCOUNT
+    state.CURRENT_ITEM =
+    JSON.parse(window.localStorage.getItem('storage')).CURRENT_ITEM
   },
   eraseAllData() {
     window.localStorage.clear()
@@ -251,8 +254,8 @@ export const actions = {
   editAccount(context, accountName, editedAccount) {
     context.commit('editAccount', accountName, editedAccount)
   },
-  deleteTransference(context,transferenceName){
-    context.commit('deleteTransference',transferenceName)
+  deleteTransference(context, transferenceName) {
+    context.commit('deleteTransference', transferenceName)
   },
   deleteIncome(context, incomeObject) {
     context.commit('deleteIncome', incomeObject)
@@ -267,13 +270,13 @@ export const actions = {
     context.commit('deleteExpenseCategory', categoryName)
   },
   saveAllData() {
-    mutations.saveAllData();
+    mutations.saveAllData()
   },
-  retrieveAllData(){
-    mutations.retrieveAllData();
+  retrieveAllData() {
+    mutations.retrieveAllData()
   },
   eraseAllData() {
-    mutations.eraseAllData();
+    mutations.eraseAllData()
   },
   saveDate(context, date) {
     let condition = true
@@ -289,7 +292,7 @@ export default new Vuex.Store({
   mutations,
   actions,
 })
-export const storeTest= new Vuex.Store({
+export const storeTest = new Vuex.Store({
   state,
   mutations,
   actions,

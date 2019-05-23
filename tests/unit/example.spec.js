@@ -21,38 +21,38 @@ suite('Store.js', () => {
   })
 
   test('add ACCOUNT ', () => {
-    window.localStorage.clear();
-    var currentLength = state.ACCOUNTS.length;
+    window.localStorage.clear()
+    const currentLength = state.ACCOUNTS.length
     const account = { name: 'CuentaPrueba', description: '...' }
-    expect(state.ACCOUNTS.length).to.equal(currentLength);
+    expect(state.ACCOUNTS.length).to.equal(currentLength)
     addAccount(state, account)
-    expect(state.ACCOUNTS.length).to.equal(currentLength+1);
+    expect(state.ACCOUNTS.length).to.equal(currentLength + 1)
   })
 
   test('add Multiple ACCOUNTS ', () => {
-    window.localStorage.clear();
-    var currentLength = state.ACCOUNTS.length;
+    window.localStorage.clear()
+    const currentLength = state.ACCOUNTS.length
     const account1 = { name: 'CuentaPrueba1', description: '...' }
     const account2 = { name: 'CuentaPrueba2', description: '...' }
     const account3 = { name: 'CuentaPrueba3', description: '...' }
 
-    expect(state.ACCOUNTS.length).to.equal(currentLength);
+    expect(state.ACCOUNTS.length).to.equal(currentLength)
     addAccount(state, account1)
     addAccount(state, account2)
     addAccount(state, account3)
-    expect(state.ACCOUNTS.length).to.equal(currentLength+3);
+    expect(state.ACCOUNTS.length).to.equal(currentLength + 3)
   })
 
   test('delete ACCOUNT ', () => {
-    var currentLength = state.ACCOUNTS.length;
+    const currentLength = state.ACCOUNTS.length
     const account = { name: 'CuentaPruebaBorrado', description: '...' }
-    expect(state.ACCOUNTS.length).to.equal(currentLength);
+    expect(state.ACCOUNTS.length).to.equal(currentLength)
     addAccount(state, account)
-    expect(state.ACCOUNTS.length).to.equal(currentLength+1);
-    deleteAccount(state,'CuentaPruebaBorrado');
-    expect(state.ACCOUNTS.length).to.equal(currentLength);
+    expect(state.ACCOUNTS.length).to.equal(currentLength + 1)
+    deleteAccount(state, 'CuentaPruebaBorrado')
+    expect(state.ACCOUNTS.length).to.equal(currentLength)
   })
-  
+
   test('add INCOME ', () => {
     const income = { name: 'income', amount: '10' }
     assert.isEmpty(state.INCOMES, 'Array de Incomes vacio')

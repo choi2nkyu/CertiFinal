@@ -4,14 +4,13 @@ import IncExpForm from '@/components/IncExpForm.vue'
 import { storeTest } from '@/store.js'
 
 
-
 suite('IncExpForm.vue', () => {
   let store
   let wrapper
-  let formType = 'Expense'
-  setup(function() {  
-    store = storeTest       
-    wrapper = shallowMount(IncExpForm, {store, propsData: { formType } })    
+  const formType = 'Expense'
+  setup(function() {
+    store = storeTest
+    wrapper = shallowMount(IncExpForm, { store, propsData: { formType } })
   })
   test('renders Name input', () => {
     expect(wrapper.find('#Name').exists())

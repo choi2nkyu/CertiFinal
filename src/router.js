@@ -45,7 +45,7 @@ export default new Router({
     {
       path: '/generalAccount',
       name: 'generalAccount',
-      component: GeneralAccount
-    }
+      component: GeneralAccount,
+    },
   ],
 })

@@ -1,137 +1,127 @@
 import { expect } from 'chai'
-import { shallowMount, createLocalVue} from '@vue/test-utils'
-import { storeTest } from '@/store.js'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { storeTest, mutations, actions } from '@/store.js'
 import GeneralAccount from '@/views/GeneralAccount.vue'
-import { mutations } from '@/store.js'
-import { actions} from '@/store.js'
+
+
 import Vuex from 'vuex'
 
 
-   const state = {
-        ACCOUNTS: [],
-        EXPENSE_CATEGORIES: [{ name: 'Add...' },
-          { name: 'Expenses' }, { name: 'Transference' }, { name: 'Other' }],
-        INCOME_CATEGORIES: [{ name: 'Add...' },
-          { name: 'Salary' }, { name: 'Other' }],
-        INCOMES: [
-            {   name: 'Income1',
-            category: 'Salary',
-            amount:'100',
-            account: 'a',
-            date: '25/05/2019',
-            _rowVariant:'success'
-            },
-            {   name:'Income2',
-            category: 'Other',
-            amount: '100',
-            account: '',
-            date: '25/05/2019',
-            _rowVariant:'success'
-            }   
+const state = {
+  ACCOUNTS: [],
+  EXPENSE_CATEGORIES: [{ name: 'Add...' },
+    { name: 'Expenses' }, { name: 'Transference' }, { name: 'Other' }],
+  INCOME_CATEGORIES: [{ name: 'Add...' },
+    { name: 'Salary' }, { name: 'Other' }],
+  INCOMES: [
+    { name: 'Income1',
+      category: 'Salary',
+      amount: '100',
+      account: 'a',
+      date: '25/05/2019',
+      _rowVariant: 'success',
+    },
+    { name: 'Income2',
+      category: 'Other',
+      amount: '100',
+      account: '',
+      date: '25/05/2019',
+      _rowVariant: 'success',
+    },
 
-        ],
-        EXPENSES: [
-            {   name: 'Expense1',
-            category: 'Expenses',
-            amount:'100',
-            account: '100',
-            date: '25/05/2019',
-            _rowVariant:'danger'
-            },
-            {   name:'Expense2',
-            category: 'Other',
-            amount: '200',
-            account: '',
-            date: '25/05/2019',
-            _rowVariant:'danger'
-            }   
-        ],
-        DATES: [],
-        CURRENT_ITEM: { name: '' },
-        CURRENT_ACCOUNT: {},
-        count: 0,
-        id: 0
-      }
+  ],
+  EXPENSES: [
+    { name: 'Expense1',
+      category: 'Expenses',
+      amount: '100',
+      account: '100',
+      date: '25/05/2019',
+      _rowVariant: 'danger',
+    },
+    { name: 'Expense2',
+      category: 'Other',
+      amount: '200',
+      account: '',
+      date: '25/05/2019',
+      _rowVariant: 'danger',
+    },
+  ],
+  DATES: [],
+  CURRENT_ITEM: { name: '' },
+  CURRENT_ACCOUNT: {},
+  count: 0,
+  id: 0,
+}
 
 suite('Cuenta Global', () => {
-    let store;
-    let wrapper;  
+  let store
+  let wrapper
 
-    setup(function() {    
-        store = new Vuex.Store({
-            state,
-            mutations,
-            actions
-        })
-      wrapper = shallowMount(GeneralAccount, {store})
+  setup(function() {
+    store = new Vuex.Store({
+      state,
+      mutations,
+      actions,
     })
-  
-    test('Income Filter Working', () => {    
+    wrapper = shallowMount(GeneralAccount, { store })
+  })
 
-        var incomeCategoryDisplay = wrapper.find('#incomeFilter');
-        var expenseCategoryDisplay = wrapper.find('#expenseFilter');
-        var dateDisplay = wrapper.find('#dateFilter');
-        
-        dateDisplay.setValue('');
-        expenseCategoryDisplay.setValue('None');
-        incomeCategoryDisplay.setValue('All');
+  test('Income Filter Working', () => {
+    const incomeCategoryDisplay = wrapper.find('#incomeFilter')
+    const expenseCategoryDisplay = wrapper.find('#expenseFilter')
+    const dateDisplay = wrapper.find('#dateFilter')
 
-        expect(wrapper.vm.items.length).to.equal(2);
-       
-    })
+    dateDisplay.setValue('')
+    expenseCategoryDisplay.setValue('None')
+    incomeCategoryDisplay.setValue('All')
 
-    test('Expense Filter Working', () => {    
+    expect(wrapper.vm.items.length).to.equal(2)
+  })
 
-        var incomeCategoryDisplay = wrapper.find('#incomeFilter');
-        var expenseCategoryDisplay = wrapper.find('#expenseFilter');
-        var dateDisplay = wrapper.find('#dateFilter');
-        
-        dateDisplay.setValue('');
-        expenseCategoryDisplay.setValue('All');
-        incomeCategoryDisplay.setValue('None');
+  test('Expense Filter Working', () => {
+    const incomeCategoryDisplay = wrapper.find('#incomeFilter')
+    const expenseCategoryDisplay = wrapper.find('#expenseFilter')
+    const dateDisplay = wrapper.find('#dateFilter')
 
-        expect(wrapper.vm.items.length).to.equal(2);
-       
-    })
-    test('Income-Expense Filter Working together 1 ', () => {    
+    dateDisplay.setValue('')
+    expenseCategoryDisplay.setValue('All')
+    incomeCategoryDisplay.setValue('None')
 
-        var incomeCategoryDisplay = wrapper.find('#incomeFilter');
-        var expenseCategoryDisplay = wrapper.find('#expenseFilter');
-        var dateDisplay = wrapper.find('#dateFilter');
-        
-        dateDisplay.setValue('');
-        expenseCategoryDisplay.setValue('None');
-        incomeCategoryDisplay.setValue('None');
+    expect(wrapper.vm.items.length).to.equal(2)
+  })
+  test('Income-Expense Filter Working together 1 ', () => {
+    const incomeCategoryDisplay = wrapper.find('#incomeFilter')
+    const expenseCategoryDisplay = wrapper.find('#expenseFilter')
+    const dateDisplay = wrapper.find('#dateFilter')
 
-        expect(wrapper.vm.items.length).to.equal(0);
-       
-    })
+    dateDisplay.setValue('')
+    expenseCategoryDisplay.setValue('None')
+    incomeCategoryDisplay.setValue('None')
 
-    test('Income-Expense Filter Working together 2 ', () => {    
+    expect(wrapper.vm.items.length).to.equal(0)
+  })
 
-        var incomeCategoryDisplay = wrapper.find('#incomeFilter');
-        var expenseCategoryDisplay = wrapper.find('#expenseFilter');
-        var dateDisplay = wrapper.find('#dateFilter');
-        
-        dateDisplay.setValue('');
-        expenseCategoryDisplay.setValue('All');
-        incomeCategoryDisplay.setValue('All');
+  test('Income-Expense Filter Working together 2 ', () => {
+    const incomeCategoryDisplay = wrapper.find('#incomeFilter')
+    const expenseCategoryDisplay = wrapper.find('#expenseFilter')
+    const dateDisplay = wrapper.find('#dateFilter')
 
-        expect(wrapper.vm.items.length).to.equal(4);
-       
-    })
+    dateDisplay.setValue('')
+    expenseCategoryDisplay.setValue('All')
+    incomeCategoryDisplay.setValue('All')
 
-    test('Date Filter Working', () => {    
+    expect(wrapper.vm.items.length).to.equal(4)
+  })
 
-        var incomeCategoryDisplay = wrapper.find('#incomeFilter');
-        var expenseCategoryDisplay = wrapper.find('#expenseFilter');
-        var dateDisplay = wrapper.find('#dateFilter');
-        
-        dateDisplay.setValue('25/05/2019');
-        expenseCategoryDisplay.setValue('All');
-        incomeCategoryDisplay.setValue('All');
+  test('Date Filter Working', () => {
+    const incomeCategoryDisplay = wrapper.find('#incomeFilter')
+    const expenseCategoryDisplay = wrapper.find('#expenseFilter')
+    const dateDisplay = wrapper.find('#dateFilter')
 
-        expect(wrapper.vm.items.length).to.equal(4);
-       
-    })
+    dateDisplay.setValue('25/05/2019')
+    expenseCategoryDisplay.setValue('All')
+    incomeCategoryDisplay.setValue('All')
+
+    expect(wrapper.vm.items.length).to.equal(4)
+  })
 })

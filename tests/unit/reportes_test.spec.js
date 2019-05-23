@@ -1,16 +1,15 @@
 import { expect } from 'chai'
-import { shallowMount} from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import reportes from '@/views/reportes.vue'
 import { storeTest } from '@/store.js'
 
 
-
 suite('reportes.vue', () => {
-  let store  
+  let store
   let wrapper
   setup(function() {
-    store = storeTest       
-    wrapper = shallowMount(reportes, {store})
+    store = storeTest
+    wrapper = shallowMount(reportes, { store })
   })
   test('buttons add, edit, delete in Ingresos', () => {
     const buttonArray = wrapper.findAll('b-button')

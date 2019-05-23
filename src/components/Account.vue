@@ -61,10 +61,10 @@
 
 <script>
 import { constants } from 'fs'
-import SaveButton from '@/components/SaveButton.vue';
+import SaveButton from '@/components/SaveButton.vue'
 export default {
   name: 'Account',
-  components :{ SaveButton},
+  components: { SaveButton },
   props: {
     msg: String,
   },
@@ -119,12 +119,12 @@ export default {
           id: this.currentId++,
           name: this.$refs.accountInput[0].value,
           description: this.$refs.accountInput[1].value,
-          balance: this.currentBalance
+          balance: this.currentBalance,
         }
         this.add(object)
         this.addAccountToStore()
         this.$refs.accountInput.forEach((element) => {
-          element.value = ""
+          element.value = ''
         })
       } else {
         this.showInputAlert = true
@@ -135,7 +135,7 @@ export default {
         id: this.currentId++,
         name: this.currentName,
         description: this.currentDescription,
-        balance: this.currentBalance
+        balance: this.currentBalance,
       })
     },
     rowSelected(items) {
@@ -147,7 +147,6 @@ export default {
       }
     },
     editClicked() {
-     
       if (this.selected.length == 1) {
         this.showGridAlert = false
         this.changeButton = true
@@ -158,7 +157,7 @@ export default {
         this.changeButton = false
       }
     },
-    deleteClicked() {      
+    deleteClicked() {
       if (this.selected.length == 1) {
         this.showGridAlert = false
         this.$store.dispatch('deleteAccount', this.selected[0].name)
@@ -175,7 +174,7 @@ export default {
         }
       })
       this.$refs.accountInput.forEach((element) => {
-        element.value = ""
+        element.value = ''
       })
     },
     navigate() {
@@ -189,10 +188,9 @@ export default {
       }
     },
 
-    goToGeneralAccount(){
+    goToGeneralAccount() {
       this.$router.push('generalAccount')
-
-    }
+    },
   },
 }
 </script>
@@ -213,7 +211,7 @@ export default {
     position: absolute;
     right: 83%;
     top:5%;
-  
+
 }
 
 .left-column {

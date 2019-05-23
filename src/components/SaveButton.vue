@@ -20,10 +20,9 @@ export default {
       console.log(window.localStorage.length)
     },
 
-    deleteStorage(){
-      window.localStorage.clear();
-
-    }
+    deleteStorage() {
+      window.localStorage.clear()
+    },
 
   },
 
@@ -67,10 +66,8 @@ export default {
     right: 5%;
     top:15%;
   }
-  
+
 
 </style>
-
-
 
 

@@ -67,7 +67,7 @@
 import SaveButton from '@/components/SaveButton.vue'
 export default {
   name: 'IncExpForm',
-  components:{SaveButton},
+  components: { SaveButton },
   data() {
     return {
       currentName: this.$store.state.CURRENT_ITEM.name,
@@ -77,7 +77,7 @@ export default {
       currentAccount: this.$store.state.CURRENT_ACCOUNT.name,
       newCategoryName: '',
       destinationAccount: '',
-      showFormAlert: false
+      showFormAlert: false,
     }
   },
   props: {
@@ -124,7 +124,7 @@ export default {
           }
           console.log(this.oldName)
           this.$store.dispatch('edit' + this.formType, formObject)
-          this.navigate()  
+          this.navigate()
         } else {
           this.showFormAlert = true
         }
@@ -144,20 +144,20 @@ export default {
             amount: this.currentAmount,
             account: this.currentAccount,
             date: today,
-            _rowVariant: this.formType === 'Income' ? 'success' : 'danger'
+            _rowVariant: this.formType === 'Income' ? 'success' : 'danger',
           }
           this.$store.dispatch('add' + this.formType, formObject)
           this.$store.dispatch('saveDate', today)
 
-           if (this.transferenceBool) {
-          const formObject = {
-            name: this.currentName,
-            category: this.currentCategory,
-            amount: this.currentAmount,
-            account: this.destinationAccount,
+          if (this.transferenceBool) {
+            const formObject = {
+              name: this.currentName,
+              category: this.currentCategory,
+              amount: this.currentAmount,
+              account: this.destinationAccount,
+            }
+            this.$store.dispatch('addIncome', formObject)
           }
-          this.$store.dispatch('addIncome', formObject)
-        }
           this.navigate()
         } else {
           this.showFormAlert = true
@@ -181,26 +181,24 @@ export default {
     navigate() {
       this.$router.push('reportes')
     },
-    updateAccountBalance(){
-      for(var account of this.$store.state.ACCOUNTS){
-          if(account.name==this.currentAccount){              
-              var newBalanceAddition = Number.parseInt(account.balance)+Number.parseInt(this.currentAmount);
-              var newBalanceSubstraction = Number.parseInt(account.balance)-Number.parseInt(this.currentAmount);
-              if(this.formType=='Income'){                
-                account.balance = newBalanceAddition;
-                return true;
-              }
-              else if(this.formType=='Expense' && newBalanceSubstraction>=0){
-                account.balance = newBalanceSubstraction;
-                return true;
-                }              
-              else{
-                alert("There is not enough money in the account to create this expense")
-                return false;              
-              }
+    updateAccountBalance() {
+      for (const account of this.$store.state.ACCOUNTS) {
+        if (account.name == this.currentAccount) {
+          const newBalanceAddition = Number.parseInt(account.balance) + Number.parseInt(this.currentAmount)
+          const newBalanceSubstraction = Number.parseInt(account.balance) - Number.parseInt(this.currentAmount)
+          if (this.formType == 'Income') {
+            account.balance = newBalanceAddition
+            return true
+          } else if (this.formType == 'Expense' && newBalanceSubstraction >= 0) {
+            account.balance = newBalanceSubstraction
+            return true
+          } else {
+            alert('There is not enough money in the account to create this expense')
+            return false
           }
+        }
       }
-    }
+    },
   },
 }
 </script>
