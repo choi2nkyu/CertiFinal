@@ -189,8 +189,10 @@ export default {
         for (const element of this.$store.state.INCOMES) {
           if (this.currentDate === element.date) {objects.push(element)}
         }
+        /* eslint-disable */
         this.currentDate = ''
         this.currentIncomeCategory = 'All'
+        /* eslint-enable */
         return objects
       } else {
         for (const element of this.$store.state.INCOMES) {
@@ -216,8 +218,10 @@ export default {
         for (const element of this.$store.state.EXPENSES) {
           if (this.currentDate === element.date) {objects.push(element)}
         }
+        /* eslint-disable */
         this.currentDate = ''
         this.currentExpenseCategory = 'All'
+        /* eslint-enable */
         return objects
       } else {
         for (const element of this.$store.state.EXPENSES) {
@@ -264,7 +268,9 @@ export default {
         if (this.$store.state.CURRENT_ACCOUNT.name ===
          account.name) {account.balance = currentBalance}
       }
+      /* eslint-disable */
       this.$store.state.balance = currentBalance
+      /* eslint-enable */
       return currentBalance
     },
   },
