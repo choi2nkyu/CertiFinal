@@ -4,7 +4,7 @@
 
             <div class="row">
         <h3 style = "margin-left:11%; font-size:1em">Filtrar por fecha</h3>
-        <select value=''  style = "margin-left:6%" v-model="currentDate">
+        <select id='dateFilter' value=''  style = "margin-left:6%" v-model="currentDate">
             <option
               v-for="date in dates"
               :key="date"
@@ -16,7 +16,7 @@
 
         <div class="row">
           <h3 style="margin-left:10%; font-size:1em">Filtrar por categoria: </h3>
-          <select value='' style="margin-left:4%"
+          <select id='incomeFilter' value='' style="margin-left:4%"
           v-model="currentIncomeCategory">
             <option
               v-for="category in Income_categories"
@@ -28,7 +28,7 @@
 
     <div class="row">
           <h3 style="margin-left:60%; margin-top:-2%; font-size:1em">Filtrar por categoria: </h3>
-          <select value='' style="margin-left:75%; margin-top:-2%"
+          <select id='expenseFilter' value='' style="margin-left:75%; margin-top:-2%"
           v-model="currentExpenseCategory">
             <option
               v-for="category in Expense_categories"
