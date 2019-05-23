@@ -87,8 +87,10 @@ export default {
             objects.push(element)
           }
         }
+        /* eslint-disable */
         this.currentDate = ''
         this.currentIncomeCategory = 'All'
+        /* eslint-enable */
       } else {
         for (const element of this.$store.state.INCOMES) {
           if (this.currentIncomeCategory === element.category) {
@@ -108,8 +110,10 @@ export default {
             objects.push(element)
           }
         }
+        /* eslint-disable */
         this.currentDate = ''
         this.currentExpenseCategory = 'All'
+        /* eslint-enable */
       } else {
         for (const element of this.$store.state.EXPENSES) {
           if (this.currentExpenseCategory === element.category) {
