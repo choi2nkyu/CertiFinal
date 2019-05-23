@@ -14,7 +14,7 @@
         <form>
           <div v-for="field in fields" v-bind:key="field.id" class="form-group">
             <label for="field.value">{{field.label}}</label>
-            <input ref="accountInput" type="text" class="form-control" id="field.value">
+            <input ref="accountInput" type="text" class="form-control" :id="field.value">
           </div>
         </form>
         <button
@@ -22,6 +22,7 @@
           class="btn btn-outline-primary"
           @click="addClicked()"
           v-if="!changeButton"
+          id = "buttonAdd"
         >Add</button>
         <button
           type="button"
@@ -51,6 +52,7 @@
           class="btn btn-primary"
           v-if="showDetailButton"
           @click="navigate"
+          id = "buttonDetail"
         >Detail</button>
       </div>
     </div>

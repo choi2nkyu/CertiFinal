@@ -1,7 +1,8 @@
 <template>
   <div>
     <SaveButton/>
-    <h2>SALDO:{{balance}}</h2>
+    <h2>SALDO:</h2>
+    <label id=lblSaldo> {{balance}} </label>
     <h1>Reportes</h1>
     <div class="alert alert-danger" role="alert"
     v-if="showGridAlert">Please only select one grid.</div>
@@ -45,6 +46,7 @@
             variant="outline-primary"
             style="margin-left: 10px"
             @click="navigateToIncome"
+            id = "buttonAddIncome"
           >Add</b-button>
           <b-button
             variant="outline-primary"
@@ -83,6 +85,7 @@
             variant="outline-primary"
             style="margin-left: 10px"
             @click="navigateToExpense"
+            id="buttonAddOutcome"
           >Add</b-button>
           <b-button
             variant="outline-primary"
