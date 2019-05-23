@@ -1,7 +1,8 @@
 <template>
   <div class="account">
     <SaveButton/>
-    <button id="generalAccount" @click="goToGeneralAccount" >General Account</button>
+    <button id="generalAccount"
+    @click="goToGeneralAccount" >General Account</button>
 
     <h1>{{ msg }}</h1>
     <div class="container row">
@@ -14,7 +15,8 @@
         <form>
           <div v-for="field in fields" v-bind:key="field.id" class="form-group">
             <label for="field.value">{{field.label}}</label>
-            <input ref="accountInput" type="text" class="form-control" :id="field.value">
+            <input ref="accountInput" type="text"
+            class="form-control" :id="field.value">
           </div>
         </form>
         <button
@@ -37,8 +39,10 @@
           role="alert"
           v-if="showGridAlert"
         >Please only select one grid.</div>
-        <button type="button" class="btn btn-outline-primary" @click="editClicked()">Edit</button>
-        <button type="button" class="btn btn-outline-danger" @click="deleteClicked()">Delete</button>
+        <button type="button" class="btn btn-outline-primary"
+        @click="editClicked()">Edit</button>
+        <button type="button" class="btn btn-outline-danger"
+        @click="deleteClicked()">Delete</button>
         <b-table
           selectable
           hover
@@ -60,7 +64,6 @@
 </template>
 
 <script>
-import { constants } from 'fs'
 import SaveButton from '@/components/SaveButton.vue'
 export default {
   name: 'Account',
